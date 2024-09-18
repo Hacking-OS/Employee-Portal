@@ -1,33 +1,45 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private userInfo: string | null = null;
+  private userInfoSubject: BehaviorSubject<string | null>;
 
   constructor() {
-    if (typeof window !== 'undefined') { // Ensure window is available
-      this.userInfo = sessionStorage.getItem('userInfo');
+    if (typeof window !== 'undefined') {
+    const storedUserInfo = sessionStorage.getItem('userInfo') ?? null;
+    this.userInfoSubject = new BehaviorSubject<string | null>(storedUserInfo);
+    } else{
+      this.userInfoSubject = new BehaviorSubject<string | null>(null);
+    }
+  }
+
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    if (typeof window !== 'undefined') {
+    const storedUserInfo = sessionStorage.getItem('userInfo') ?? null;
+    this.userInfoSubject = new BehaviorSubject<string | null>(storedUserInfo);
     }
   }
 
   isAuthenticated(): Observable<boolean> {
-    return of(this.userInfo !== null);
+    return this.userInfoSubject.asObservable().pipe(
+      map(userInfo => userInfo !== null)
+    );
   }
 
   setUserInfo(info: string): void {
-    if (typeof window !== 'undefined') { // Ensure window is available
-      sessionStorage.setItem('userInfo', info);
-      this.userInfo = info;
-    }
+    if (typeof window !== 'undefined') {
+    sessionStorage.setItem('userInfo', info);
+    this.userInfoSubject.next(info);
+    } // Update the BehaviorSubject
   }
 
   clearUserInfo(): void {
-    if (typeof window !== 'undefined') { // Ensure window is available
-      sessionStorage.removeItem('userInfo');
-      this.userInfo = null;
-    }
+    sessionStorage.removeItem('userInfo');
+    this.userInfoSubject.next(null);
   }
 }

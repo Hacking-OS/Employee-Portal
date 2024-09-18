@@ -36,7 +36,7 @@
      <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
       <mat-cell *matCellDef="let item">
-        <button mat-button color="primary" class="btn btn-primary me-2" (click)="onEdit(item)">Edit</button>
+        <button mat-button color="primary" class="btn btn-primary me-2" (click)="onEdit(item)" [disabled]="item.isAdmin && item.isTeamAdmin">Edit</button>
         <button mat-button color="warn" class="btn btn-danger" (click)="onDelete(item)">Delete</button>
       </mat-cell>
     </ng-container>
@@ -46,3 +46,37 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 </mat-card>
+
+
+
+<div  #ModelPopup class="modal fade" id="globalModal" tabindex="-1" aria-labelledby="globalModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="globalModalLabel">Global Modal</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form #f="ngForm" (ngSubmit)="updateEmployeeFromPopup()">
+      <div class="modal-body">
+        <!-- Dynamic content goes here -->
+        <ng-content>
+          <!-- Content here -->
+          <!-- Example: <p>Some text in the modal.</p> -->
+            <mat-label>name</mat-label>
+            <input class="form-control" type="text" name="name" id="name" [(ngModel)]="updateUser.name" [disabled]="updateUser.isTeamAdmin  &&  updateUser.isUser">
+            <mat-label>email</mat-label>
+            <input class="form-control"type="text" name="email" id="email" [(ngModel)]="updateUser.email" [disabled]="updateUser.isTeamAdmin  &&  updateUser.isUser">
+            <mat-label>phone</mat-label>
+            <input class="form-control"type="text" name="phone" id="phone" mask="000-000-0000" [showMaskTyped]="true" [dropSpecialCharacters]="false" [(ngModel)]="updateUser.phone" [disabled]="updateUser.isTeamAdmin  &&  updateUser.isUser">
+            <mat-label>salary</mat-label>
+            <input class="form-control"type="text" name="salary" id="salary" [(ngModel)]="updateUser.salary" [disabled]="updateUser.isTeamAdmin">
+          </ng-content>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button *ngIf="updateUser.isAdmin" type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

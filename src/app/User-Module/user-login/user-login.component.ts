@@ -1,3 +1,4 @@
+import { AuthService } from './../../Shared-Module/Services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -34,7 +35,8 @@ export class UserLoginComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private notification: NotificationService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private authService:AuthService
   ) { }
 
   ngOnInit(): void {
@@ -61,9 +63,11 @@ export class UserLoginComponent implements OnInit {
               type: 'success',
               message: 'Login Successful!'
             });
-            sessionStorage.setItem('userInfo', JSON.stringify(response));
+            // sessionStorage.setItem('userInfo', JSON.stringify(response));
+            this.authService.setUserInfo(JSON.stringify(response));
             setTimeout(()=>{
-              this.router.navigate(['/page/Home']);
+              this.router.navigate(['/page/listing']);
+              // this.router.navigate(['/page/Home']);
             }, 4000);
           }
         }

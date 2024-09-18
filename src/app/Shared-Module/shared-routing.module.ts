@@ -6,9 +6,11 @@ import { HomeComponent } from './Components/home/home.component';
 
 
 const routes: Routes = [
-  { path: 'listing', component: ListingComponent , canActivate:[UserExistsGuard]},
-  { path: 'Home', component: HomeComponent},
-  // { path: 'signup', component: UserSignupComponent }
+  // Redirect the base path to /page/home
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'listing', component: ListingComponent, canActivate: [UserExistsGuard] },
+  { path: '**', redirectTo: '/home' }
 ];
 
 @NgModule({

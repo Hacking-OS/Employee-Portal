@@ -24,6 +24,7 @@ import { SharedModule } from './Shared-Module/shared.module';
 import { UserExistsGuard } from './Shared-Module/Guards/user-exist.guard';
 import { UserDoesNotExistGuard } from './Shared-Module/Guards/user-doesnot-exist.guard';
 import { AuthService } from './Shared-Module/Services/auth.service';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 @NgModule({
   declarations: [AppComponent ],
@@ -40,12 +41,15 @@ import { AuthService } from './Shared-Module/Services/auth.service';
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
+    NgxMaskDirective,    // Add mask directive
+    NgxMaskPipe,
     SharedModule,
     UserModule
   ],
   providers: [
     provideHttpClient(),
     // NotificationService,
+    provideNgxMask(),
     AuthService,
     SharedService,
     SharedEndPointService,

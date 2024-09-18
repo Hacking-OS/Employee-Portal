@@ -24,10 +24,10 @@ export class UserExistsGuard implements CanActivate {
       map(isAuthenticated => {
         if (isAuthenticated) {
           console.log('User is not authenticated. Redirecting to /Home...');
-          // this.router.navigate(['/page/Home']);
+          this.router.navigate(['/page/Home']);
           return true; // Prevent navigation to the requested route
         }
-        this.router.navigate(['/page/Home']);
+        // this.router.navigate(['/page/Home']);
         return false; // Allow navigation to the requested route
       }),
       catchError(error => {

@@ -14,12 +14,15 @@ import { NotificationComponent } from './Components/notification/notification.co
 import { NotificationService } from './Components/notification/notification.AlertService'; // Update import path
 import { provideHttpClient } from '@angular/common/http';
 import { HomeComponent } from './Components/home/home.component';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { HeaderComponent } from './Components/header/header.component';
 
 @NgModule({
   declarations: [
     ListingComponent,
     NotificationComponent,
-    HomeComponent
+    HomeComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
@@ -33,11 +36,15 @@ import { HomeComponent } from './Components/home/home.component';
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
+    NgxMaskDirective,    // Add mask directive
+    NgxMaskPipe,
   ],
-  providers: [provideHttpClient(),NotificationService], // Provide the service here
+  providers: [provideNgxMask(),provideHttpClient(),NotificationService], // Provide the service here
   exports: [
     ListingComponent,
-    NotificationComponent
+    NotificationComponent,
+    HomeComponent,
+    HeaderComponent
   ]
 })
 export class SharedModule { }
