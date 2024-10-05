@@ -1,3 +1,4 @@
+<app-notification></app-notification>
 <div class="login-container">
   <mat-card class="login-card">
     <mat-card-header>
@@ -8,7 +9,7 @@
       <form class="mt-4" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
-          <input matInput formControlName="email" type="email" placeholder="Enter your email" autocomplete="off"/>
+          <input matInput formControlName="email" type="email" placeholder="Enter your email" autocomplete="off" />
           <mat-error *ngIf="loginForm.get('email')?.invalid">
             Please enter a valid email.
           </mat-error>
@@ -16,22 +17,36 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Password</mat-label>
-          <input matInput formControlName="password" type="password" placeholder="Enter your password" autocomplete="off"/>
+          <input matInput formControlName="password" type="password" placeholder="Enter your password"
+            autocomplete="off" />
           <mat-error *ngIf="loginForm.get('password')?.invalid">
             Password is required.
           </mat-error>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" class="login-btn" type="submit" [disabled]="loginForm.invalid">
+        <!-- <button mat-raised-button color="primary" class="login-btn" type="submit" [disabled]="loginForm.invalid">
           Login
+        </button> -->
+        <button mat-raised-button color="primary" class="login-btn" type="submit"
+          [disabled]="loginForm.invalid || isSubmitting">
+          <ng-container *ngIf="!isSubmitting; else loggingIn">
+            Login
+          </ng-container>
+          <ng-template #loggingIn>
+              <div class="custom-spinner"></div>
+              Logging in...
+            <!-- <mat-spinner [diameter]="20" class="spinner"></mat-spinner>
+            Logging in... -->
+          </ng-template>
         </button>
+
       </form>
     </mat-card-content>
     <mat-card-actions>
       <button mat-button color="primary" class="auth-button">Forgot Password?</button>
       <button mat-button color="primary" class="auth-button" (click)="redirectToSignup()">Sign Up</button>
       <!-- Signup Button -->
-<!-- <button mat-button color="primary" class="auth-button" ><a [routerLink]="'/signup'">Sign Up</a></button> -->
+      <!-- <button mat-button color="primary" class="auth-button" ><a [routerLink]="'/signup'">Sign Up</a></button> -->
 
       <!-- <button mat-button color="accent">Forgot Password?</button>
       <button mat-button color="accent">Sign Up</button> -->

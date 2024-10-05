@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, of } from 'rxjs';
+import { LoginResponse } from '../../User-Module/user-login/models/loginResponse.model';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,30 @@ export class AuthService {
     this.userInfoSubject.next(info);
     } // Update the BehaviorSubject
   }
+  getUserInfo(): Object {
+    if (typeof window !== 'undefined') {
+    return JSON.parse(sessionStorage.getItem('userInfo')!);
+    // this.userInfoSubject.next(info);
+    } // Update the BehaviorSubject
+    return {}
+  }
+
+  setToken(item:LoginResponse):void{
+    sessionStorage.setItem('accessToken',item.accessToken);
+    sessionStorage.setItem('refreshToken',item.refreshToken);
+  }
+
+  getToken():string {
+    if(!sessionStorage.getItem('accessToken')&&!sessionStorage.getItem('refreshToken')) return '';
+   return sessionStorage.getItem('accessToken')!;
+  }
+  // getToken():{accessToken:string,refreshToken:string}{
+  //   if(!sessionStorage.getItem('accessToken')&&!sessionStorage.getItem('refreshToken')) return {accessToken:'',refreshToken:''};
+  //  return {
+  //   accessToken:sessionStorage.getItem('accessToken')!,
+  //   refreshToken:sessionStorage.getItem('refreshToken')!
+  //   }
+  // }
 
   clearUserInfo(): void {
     sessionStorage.removeItem('userInfo');

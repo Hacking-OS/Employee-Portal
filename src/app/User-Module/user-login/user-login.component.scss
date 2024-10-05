@@ -4,7 +4,13 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(135deg, #00acc1, #00bcd4, #24e7e3, #44e77a);/* Professional blue to gray gradient */
+  background: linear-gradient(
+    135deg,
+    #00acc1,
+    #00bcd4,
+    #24e7e3,
+    #44e77a
+  ); /* Professional blue to gray gradient */
 }
 
 /* Styling for the login card */
@@ -27,14 +33,14 @@
     font-weight: 600; /* Bold for emphasis */
     color: #007bff; /* Blue color for title */
     letter-spacing: 1px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   }
 
   mat-card-subtitle {
     font-size: 14px;
     color: #6c757d; /* Subtle gray color for subtitle */
     opacity: 0.8;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   }
 
   mat-card-actions {
@@ -42,24 +48,72 @@
     justify-content: center;
   }
 
-  /* Styling for the login button */
   .login-btn {
-    width: 100%;
-    margin-top: 1.5rem;
-    padding: 12px;
+    background: #007bff;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease, transform 0.2s ease;
+    color: #ffffff;
     border-radius: 25px;
-    background: #007bff; /* Blue button */
-    color: #ffffff; /* White text */
-    font-weight: bold;
+    padding: 12px;
     letter-spacing: 1px;
-    transition: background 0.3s ease, transform 0.2s ease; /* Smooth transitions for hover effects */
+    margin-top: 1.5rem;
+    width: 100%;
+    border-color: #00acc1;
 
     &:hover {
-      background: #0056b3; /* Darker blue on hover */
-      box-shadow: 0px 6px 16px rgba(0, 123, 255, 0.5); /* Enhanced shadow effect */
-      transform: translateY(-2px); /* Slight lift effect */
+      background: #0056b3;
+      box-shadow: 0px 6px 16px rgba(0, 123, 255, 0.5);
+      transform: translateY(-2px);
+      border-color: #24e7e3;
     }
   }
+
+  .custom-spinner {
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-top: 5px solid white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+    margin-right: 20px;
+  }
+
+  /* Spinner animation */
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  button.mat-raised-button {
+    min-width: 120px; /* Ensures button width does not shrink too much */
+    padding: 10px;
+  }
+
+  button .spinner {
+    position: relative;
+  }
+
+  /* Styling for the login button */
+  // .login-btn {
+  //   width: 100%;
+  //   margin-top: 1.5rem;
+  //   padding: 12px;
+  //   border-radius: 25px;
+  //   background: #007bff; /* Blue button */
+  //   color: #ffffff; /* White text */
+  //   font-weight: bold;
+  //   letter-spacing: 1px;
+  //   transition: background 0.3s ease, transform 0.2s ease; /* Smooth transitions for hover effects */
+
+  //   &:hover {
+  //     background: #0056b3; /* Darker blue on hover */
+  //     box-shadow: 0px 6px 16px rgba(0, 123, 255, 0.5); /* Enhanced shadow effect */
+  //     transform: translateY(-2px); /* Slight lift effect */
+  //   }
+  // }
 
   /* Styling for form fields */
   mat-form-field {
@@ -86,7 +140,8 @@
       color: #007bff; /* Blue label color */
     }
 
-    .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    .mat-form-field-appearance-outline.mat-focused
+      .mat-form-field-outline-thick {
       border-color: #0056b3; /* Darker blue border on focus */
     }
   }
@@ -103,7 +158,13 @@
 
   /* Styling for the "Forgot Password?" and "Sign Up" buttons */
   .mat-button {
-    color: linear-gradient(135deg, #00acc1, #00bcd4, #24e7e3, #44e77a); /* Grayish color for text */
+    color: linear-gradient(
+      135deg,
+      #00acc1,
+      #00bcd4,
+      #24e7e3,
+      #44e77a
+    ); /* Grayish color for text */
     font-weight: 500; /* Slightly bold text */
     letter-spacing: 0.5px; /* Slight spacing for readability */
     transition: background 0.3s ease, color 0.3s ease; /* Smooth transition effects */
@@ -145,7 +206,11 @@
 // }
 
 .auth-button {
-  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Unified gradient with purple and blue */
+  background: linear-gradient(
+    135deg,
+    #6a11cb,
+    #2575fc
+  ); /* Unified gradient with purple and blue */
   color: #fff; /* White text color */
   font-weight: bold; /* Bold text for emphasis */
   letter-spacing: 0.5px; /* Spacing between letters for readability */
@@ -156,7 +221,11 @@
   transition: background 0.3s ease, transform 0.2s ease; /* Smooth transitions */
 
   &:hover {
-    background: linear-gradient(135deg, #2575fc, #6a11cb); /* Reversed gradient on hover */
+    background: linear-gradient(
+      135deg,
+      #2575fc,
+      #6a11cb
+    ); /* Reversed gradient on hover */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
     transform: translateY(-2px); /* Slight lift effect on hover */
   }
@@ -167,12 +236,10 @@
   }
 }
 
-
 /* Additional global button styling if needed */
 button {
-  margin: 0.5rem;  /* Spacing between the buttons */
+  margin: 0.5rem; /* Spacing between the buttons */
 }
-
 
 /* Keyframes for the slide-in animation */
 @keyframes slideIn {

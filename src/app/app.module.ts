@@ -16,15 +16,16 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { NotificationService } from './shared-module/Components/notification/notification.AlertService';
 import { SharedService } from './Shared-Module/Services/shared.service';
-import { SharedEndPointService } from './Shared-Module/Services/shared-end-point.service';
+// import { SharedEndPointService } from './Shared-Module/Services/shared-end-point.service';
 import { provideHttpClient } from '@angular/common/http';
-import { NotificationComponent } from './Shared-Module/Components/notification/notification.component';
+// import { NotificationComponent } from './Shared-Module/Components/notification/notification.component';
 import { UserModule } from './User-Module/user.module';
 import { SharedModule } from './Shared-Module/shared.module';
 import { UserExistsGuard } from './Shared-Module/Guards/user-exist.guard';
 import { UserDoesNotExistGuard } from './Shared-Module/Guards/user-doesnot-exist.guard';
 import { AuthService } from './Shared-Module/Services/auth.service';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [AppComponent ],
@@ -40,6 +41,7 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     MatFormFieldModule,
     MatListModule,
     MatTableModule,
+    MatProgressSpinnerModule,
     MatPaginatorModule,
     NgxMaskDirective,    // Add mask directive
     NgxMaskPipe,
@@ -52,7 +54,7 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     provideNgxMask(),
     AuthService,
     SharedService,
-    SharedEndPointService,
+    // SharedEndPointService,
     UserDoesNotExistGuard,UserExistsGuard
   ],
   bootstrap: [AppComponent]

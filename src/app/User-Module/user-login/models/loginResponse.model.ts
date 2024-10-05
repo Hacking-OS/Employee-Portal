@@ -1,4 +1,10 @@
 export interface LoginResponse {
+  employee:Employee;
+  accessToken:string;
+  refreshToken:string;
+}
+
+interface Employee{
   id: string;
   name: string;
   email: string;

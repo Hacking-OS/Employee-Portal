@@ -1,3 +1,4 @@
+import { AuthService } from './../../Services/auth.service';
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 
@@ -8,13 +9,10 @@ import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
  userInfo:any;
- constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+ constructor(@Inject(PLATFORM_ID) private platformId: Object,private authService:AuthService) {}
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      const userInfoStr = sessionStorage.getItem('userInfo');
-      if (userInfoStr) {
-        this.userInfo = JSON.parse(userInfoStr);
-      }
-    }
+    // this.userInfo = this.authService.getUserInfo();
+    this.userInfo = this.authService.getUserInfo();
+
   }
 }

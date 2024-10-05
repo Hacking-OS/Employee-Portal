@@ -1,4 +1,5 @@
 <!-- {{ list|json }} -->
+ <app-header></app-header>
  <app-notification></app-notification>
 <mat-card class="item-card">
   <mat-table [dataSource]="list" class="mat-elevation-z8">
@@ -36,7 +37,7 @@
      <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
       <mat-cell *matCellDef="let item">
-        <button mat-button color="primary" class="btn btn-primary me-2" (click)="onEdit(item)" [disabled]="item.isAdmin && item.isTeamAdmin">Edit</button>
+        <button mat-button color="primary" class="btn btn-primary me-2" (click)="onEdit(item)" [disabled]="!item.isAdmin && item.isTeamAdmin">Edit</button>
         <button mat-button color="warn" class="btn btn-danger" (click)="onDelete(item)">Delete</button>
       </mat-cell>
     </ng-container>

@@ -6,7 +6,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 // import { NotificationService } from '../../shared-module/Components/notification/notification.AlertService';
 // import { SharedService } from '../../shared-module/Services/shared.service';
 import { LoginResponse } from './models/loginResponse.model';
-import { HttpErrorResponse } from '@angular/common/http';
+// import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationService } from '../../Shared-Module/Components/notification/notification.AlertService';
 import { SharedService } from '../../Shared-Module/Services/shared.service';
 
@@ -30,7 +30,7 @@ import { SharedService } from '../../Shared-Module/Services/shared.service';
 })
 export class UserLoginComponent implements OnInit {
   loginForm!: FormGroup;
-
+  isSubmitting:boolean=false;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -47,35 +47,34 @@ export class UserLoginComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isSubmitting=true;
     if (this.loginForm.valid) {
       const loginData = this.loginForm.value;
       this.sharedService.getDataAndSetList(
         () => this.sharedService.GetApiResponse<LoginResponse, { email: string; password: string }>('api/Employees/Login', loginData),
-        (response: LoginResponse | HttpErrorResponse) => {
-          if (response instanceof HttpErrorResponse) {
-            this.notification.addAlert({
-              type: 'error',
-              message: 'Error: ' + JSON.stringify(response.error)
-            });
-          } else {
+        (response: LoginResponse) => {
             console.log(response);
             this.notification.addAlert({
               type: 'success',
               message: 'Login Successful!'
             });
             // sessionStorage.setItem('userInfo', JSON.stringify(response));
-            this.authService.setUserInfo(JSON.stringify(response));
+            this.authService.setUserInfo(JSON.stringify(response.employee));
+            this.authService.setToken(response);
             setTimeout(()=>{
+              this.isSubmitting=false;
               this.router.navigate(['/page/listing']);
               // this.router.navigate(['/page/Home']);
             }, 4000);
           }
-        }
       ).catch(error => {
         console.error('Login failed:', error);
+        setTimeout(()=>{
+        this.isSubmitting=false;
+      }, 4000);
         this.notification.addAlert({
           type: 'error',
-          message: 'Error: ' + JSON.stringify(error)
+          message: 'Error: ' + JSON.stringify(error?.message??"Something Went Wrong!")
         });
       });
     }

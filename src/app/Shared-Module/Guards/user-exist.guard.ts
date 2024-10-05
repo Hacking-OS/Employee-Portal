@@ -22,13 +22,13 @@ export class UserExistsGuard implements CanActivate {
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     return this.authService.isAuthenticated().pipe(
       map(isAuthenticated => {
-        if (isAuthenticated) {
+        if (!isAuthenticated) {
           console.log('User is not authenticated. Redirecting to /Home...');
-          this.router.navigate(['/page/Home']);
-          return true; // Prevent navigation to the requested route
+          this.router.navigate(['/page/home']);
+          return false; // Prevent navigation to the requested route
         }
         // this.router.navigate(['/page/Home']);
-        return false; // Allow navigation to the requested route
+        return true; // Allow navigation to the requested route
       }),
       catchError(error => {
         console.error('Error occurred during authentication check:', error);

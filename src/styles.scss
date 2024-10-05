@@ -28,3 +28,8 @@
 // @include mat.typography($custom-theme);
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+// ::ng-deep .mat-spinner circle,
+// ::ng-deep .mat-progress-spinner circle {
+//   stroke: white !important;
+// }

@@ -18,6 +18,8 @@ import { AppRoutingModule } from "../app-routing.module";
 import { UserLoginComponent } from "./user-login/user-login.component";
 import { UserSignupComponent } from "./user-signup/user-signup.component";
 import { UserRoutingModule } from "./user-routing.module";
+import { SharedModule } from "../Shared-Module/shared.module";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -35,10 +37,11 @@ import { UserRoutingModule } from "./user-routing.module";
     MatInputModule,
     MatCardModule,
     MatFormFieldModule,
+    MatProgressSpinnerModule,
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
-    // HttpClientModule
+    SharedModule
 ],
   providers: [
     // provideClientHydration(),

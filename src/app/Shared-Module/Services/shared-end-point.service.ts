@@ -1,21 +1,34 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from './auth.service';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
+import { RequestHandlerService } from './request-handler.service';
 import { environment } from '../../../enviroment/environment';
 
 @Injectable({
   providedIn: 'root'  // Ensure this service is provided in the root injector
 })
-export class SharedEndPointService {
-  constructor(private http: HttpClient) { }
+export class SharedEndPointService extends RequestHandlerService {
+
+  constructor(http: HttpClient, authService: AuthService) {
+    super(http, authService);  // Correctly pass the http to the base class
+  }
 
   GetApiResponse<Response, OtherParams = any>(apiPath: string, obj: OtherParams): Observable<Response> {
     const url = `${environment.baseUrl}/${apiPath}`;  // Construct the URL dynamically
 
-    return this.http.post<Response>(url, obj).pipe(
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.getAuthService().getToken()}`
+    });
+    // 'Authorization': `Bearer ${this.getAuthService().getToken()}`
+    // console.error('Headders', headers);eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im11ZmFkZDUzQGdtYWlsLmNvbSIsIlJvbGUiOiJVc2VyIiwiZXhwIjoxNzI4MTU0NDU4LCJpc3MiOiJNeUFwcCIsImF1ZCI6Ik15QXBwVXNlcnMifQ.9pxmzrm4UgD1eS7UZysRje1Ii54sUctJMsYbeXo4MMA
+
+    return this.http.post<Response>(url, obj, {headers }).pipe(
       catchError((error: HttpErrorResponse) => {
-        console.error('HTTP error occurred:', error.message);  // Log the error message
-        return throwError(() => new Error(`Error occurred: ${error.message}`));  // Return a new error observable
+        console.error('HTTP error occurred:', error.message);
+        // return throwError(()=>"hahaha");
+        return this.HandleError<Response | HttpErrorResponse>(error, () => this.GetApiResponse(apiPath, obj));
+        // return this.HandleError<Response | HttpErrorResponse>(error, () => this.GetApiResponse(apiPath, obj));
       })
     );
   }
