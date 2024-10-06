@@ -48,7 +48,7 @@ export class AuthService {
 
   setToken(item:LoginResponse):void{
     sessionStorage.setItem('accessToken',item.accessToken);
-    sessionStorage.setItem('refreshToken',item.refreshToken);
+    (sessionStorage.getItem('refreshToken')!) ? null :sessionStorage.setItem('refreshToken',item.refreshToken);
   }
 
   getToken():string {
