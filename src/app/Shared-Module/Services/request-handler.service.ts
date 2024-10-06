@@ -4,12 +4,13 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, switchMap, throwError } from 'rxjs';
 import { environment } from '../../../enviroment/environment';
 import { TokenModel } from '../Schemes/Interfaces/refreshToken.interface';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class RequestHandlerService {
 
   private url:string=`${environment.baseUrl}/api/Employees/refreshToken`;
-  constructor(public http:HttpClient,private authService:AuthService) {
+  constructor(public http:HttpClient,private authService:AuthService,private router:Router) {
     this.authService = authService;
   }
 
@@ -43,8 +44,10 @@ export class RequestHandlerService {
   }
 
   handleExpiredToken(error:HttpErrorResponse):Observable<HttpEvent<HttpErrorResponse>>{
+    this.authService.clearUserInfo();
     localStorage.clear();
     sessionStorage.clear();
+    this.router.navigate(['/user/login']);
     return throwError(()=>error) as Observable<HttpEvent<HttpErrorResponse>>;
   }
 

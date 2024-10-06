@@ -4,14 +4,15 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { RequestHandlerService } from './request-handler.service';
 import { environment } from '../../../enviroment/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'  // Ensure this service is provided in the root injector
 })
 export class SharedEndPointService extends RequestHandlerService {
 
-  constructor(http: HttpClient, authService: AuthService) {
-    super(http, authService);  // Correctly pass the http to the base class
+  constructor(http: HttpClient, authService: AuthService , router:Router) {
+    super(http, authService,router);  // Correctly pass the http to the base class
   }
 
   GetApiResponse<Response, OtherParams = any>(apiPath: string, obj: OtherParams): Observable<Response> {
