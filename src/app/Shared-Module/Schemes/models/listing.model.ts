@@ -1,6 +1,8 @@
 export interface gridListingParams {
-  id: string;
+  id: number;
+  userId: string;
   name: string;
+  userName: string;
   email: string;
   password: string;
   phone: string;
@@ -8,11 +10,13 @@ export interface gridListingParams {
   isAdmin: boolean;
   isTeamAdmin: boolean;
   isUser: boolean;
+  teamName:string;
 }
 
 export class updateEmployeeParams {
-  id!: string;
+  id!: number;
   name!: string;
+  userId!: string;
   email!: string;
   password!: string;
   phone!: string;

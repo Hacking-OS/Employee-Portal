@@ -26,6 +26,7 @@ import { UserDoesNotExistGuard } from './Shared-Module/Guards/user-doesnot-exist
 import { AuthService } from './Shared-Module/Services/auth.service';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ManagementModule } from './Management-Module/management.module';
 
 @NgModule({
   declarations: [AppComponent ],
@@ -46,7 +47,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     NgxMaskDirective,    // Add mask directive
     NgxMaskPipe,
     SharedModule,
-    UserModule
+    UserModule,
+    ManagementModule
   ],
   providers: [
     provideHttpClient(),

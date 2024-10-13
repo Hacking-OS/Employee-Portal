@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, of } from 'rxjs';
 import { LoginResponse } from '../../User-Module/user-login/models/loginResponse.model';
+import { IUserInfo } from '../Schemes/Interfaces/userInfo.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -38,12 +39,12 @@ export class AuthService {
     this.userInfoSubject.next(info);
     } // Update the BehaviorSubject
   }
-  getUserInfo(): Object {
+  getUserInfo(): IUserInfo | null {
     if (typeof window !== 'undefined') {
     return JSON.parse(sessionStorage.getItem('userInfo')!);
     // this.userInfoSubject.next(info);
     } // Update the BehaviorSubject
-    return {}
+    return null;
   }
 
   setToken(item:LoginResponse):void{
@@ -63,6 +64,11 @@ export class AuthService {
   //   }
   // }
 
+  logoutUser(): void {
+    sessionStorage.clear();
+    localStorage.clear();
+    this.userInfoSubject.next(null);
+  }
   clearUserInfo(): void {
     sessionStorage.removeItem('userInfo');
     this.userInfoSubject.next(null);

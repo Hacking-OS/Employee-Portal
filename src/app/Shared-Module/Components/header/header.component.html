@@ -23,8 +23,12 @@
                   <a class="nav-link" href="#">Leave Requests</a>
               </li>
               <li  *ngIf="userInfo else elseBlock" class="nav-item">
-                  <a class="nav-link" href="#">{{userInfo?.employee?.name}}</a>
-              </li>
+                  <a class="nav-link" href="#">{{userInfo.userName}}</a>
+                </li>
+              <li  *ngIf="userInfo" class="nav-item">
+                <a class="nav-link" (click)="logout()">Logout</a>
+                </li>
+
               <ng-template #elseBlock>
                 <li  class="nav-item">
                   <a class="nav-link" [routerLink]="'/user/login'">Login</a>

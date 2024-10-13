@@ -5,6 +5,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'page/home', pathMatch: 'full' },
   { path: 'user', loadChildren: () => import('./User-Module/user.module').then(m => m.UserModule) },
   { path: 'page', loadChildren: () => import('./Shared-Module/shared.module').then(m => m.SharedModule) },
+  { path: 'manage', loadChildren: () => import('./Management-Module/management.module').then(m => m.ManagementModule) },
   { path: '**', redirectTo: 'page/home' },
 ];
 

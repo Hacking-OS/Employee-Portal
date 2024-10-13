@@ -1,0 +1,46 @@
+<app-header></app-header>
+
+<div class="container mt-5">
+  <!-- Show a loading spinner while fetching data -->
+  <!-- <div *ngIf="loading" class="loading-spinner">
+    <span class="spinner-border text-primary" role="status"></span>
+    <p>Loading data...</p>
+  </div> -->
+  <div *ngIf="loading" class="loading-spinner-container">
+      <div class="loading-spinner">
+        <div class="spinner-border" role="status"></div>
+        <p class="loading-text">Loading data...</p>
+      </div>
+    </div>
+    <!-- <div *ngIf="loading" class="loading-spinner-container">
+      <div class="spinner-border" role="status"></div>
+      <p class="loading-text">Loading data<span class="loading-dots">...</span></p>
+    </div> -->
+
+
+
+
+    <div *ngIf="!loading" class="row">
+    <!-- Card 1: Distinct Employee Count -->
+    <div *ngFor="let item of list" class="col-md-6"  [routerLink]="'/manage/departmentlisting'" [queryParams]="{teamName:item.teamGroupName}">
+      <div class="card text-white mb-3"  [style]="'background:'+ getRandomColorCode()">
+        <div class="card-header">Employee Department</div>
+        <div class="card-body">
+          <h5 class="card-title">{{ item.teamGroupName }}</h5>
+          <p class="card-text">Total Employees in this Department are : ( {{ item.count }}  )</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: Total Employees -->
+    <!-- <div class="col-md-6" *ngIf="!loading">
+      <div class="card text-white mb-3" [style]="'background:'+ getRandomColorCode()">
+        <div class="card-header">Total Employees</div>
+        <div class="card-body">
+          <h5 class="card-title">Total: {{ totalEmployeeCount || staticData.totalEmployeeCount }}</h5>
+          <p class="card-text">The total number of employees in the database.</p>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>

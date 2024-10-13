@@ -1,0 +1,25 @@
+<app-header></app-header>
+<div *ngIf="deptAdminName" class="admin-section">
+  <h2 class="admin-header">Admin</h2>
+  <p class="admin-name">{{ deptAdminName.employeeName }}</p>
+</div>
+<mat-card class="item-card">
+  <mat-table [dataSource]="list" class="mat-elevation-z8">
+    <!-- ID Column -->
+    <ng-container matColumnDef="teamGroupName">
+      <mat-header-cell *matHeaderCellDef> Belongs </mat-header-cell>
+      <mat-cell *matCellDef="let item"> {{item.teamGroupName}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="employeeName">
+      <mat-header-cell *matHeaderCellDef> Employee Name </mat-header-cell>
+      <mat-cell *matCellDef="let item"> {{item.employeeName}} </mat-cell>
+    </ng-container>
+
+
+    <!-- Table Header and Row Definitions -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</mat-card>
