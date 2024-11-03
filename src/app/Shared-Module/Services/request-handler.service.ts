@@ -1,5 +1,5 @@
 import { AuthService } from './auth.service';
-import { HttpClient, HttpErrorResponse, HttpEvent, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, filter, Observable, switchMap, throwError } from 'rxjs';
 import { environment } from '../../../enviroment/environment';

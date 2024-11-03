@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable, of } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { LoginResponse } from '../../User-Module/user-login/models/loginResponse.model';
 import { IUserInfo } from '../Schemes/Interfaces/userInfo.interface';
 
