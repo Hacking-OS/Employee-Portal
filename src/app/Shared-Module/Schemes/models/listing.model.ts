@@ -11,6 +11,7 @@ export interface gridListingParams {
   isTeamAdmin: boolean;
   isUser: boolean;
   teamName:string;
+  assignedTeamID:string;
 }
 
 export class updateEmployeeParams {
@@ -21,4 +22,5 @@ export class updateEmployeeParams {
   password!: string;
   phone!: string;
   salary!: number;
+  assignedTeamID!: string;
 }

@@ -78,7 +78,21 @@
             <mat-label>salary</mat-label>
             <input class="form-control"type="text" name="salary" id="salary" [(ngModel)]="updateUser.salary" [disabled]="!updateUser.isTeamAdmin">
             <mat-label>Position</mat-label>
-            <span class="form-control" [innerHTML]="updateUser.teamName"></span>
+            <!-- <span class="form-control" [innerHTML]="updateUser.teamName"></span> -->
+            <!-- <mat-form-field appearance="fill">
+              <mat-label>Select a Team</mat-label>
+              <mat-select [(value)]="updateUser.assignedTeamID">
+                <mat-option *ngFor="let team of EmployeeTeamListing" [value]="team.TeamId">
+                  {{ team.Name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field> -->
+
+            <select class="form-control" id="EmployeeTeamListing" name="EmployeeTeamListing" [(ngModel)]="updateUser.assignedTeamID" >
+              <option *ngFor="let team of EmployeeTeamListing" [value]="team.teamId">
+                {{ team.name }}
+              </option>
+            </select>
             <!-- <input class="form-control"type="text" name="salary" id="salary" [(ngModel)]="" [disabled]="updateUser.isTeamAdmin"> -->
           </ng-content>
         </div>

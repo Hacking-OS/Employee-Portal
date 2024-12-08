@@ -16,6 +16,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { HomeComponent } from './Components/home/home.component';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { HeaderComponent } from './Components/header/header.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { HeaderComponent } from './Components/header/header.component';
     MatPaginatorModule,
     NgxMaskDirective,    // Add mask directive
     NgxMaskPipe,
+    MatSelectModule
   ],
   providers: [provideNgxMask(),provideHttpClient(),NotificationService], // Provide the service here
   exports: [

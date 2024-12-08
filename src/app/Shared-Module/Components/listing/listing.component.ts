@@ -32,6 +32,7 @@ export class ListingComponent implements OnInit {
   @ViewChild('ModelPopup') ModelPopup!: ElementRef;
   private modelPopupInstance!: ModalInstance;
   list: gridListingParams[] = [];
+  EmployeeTeamListing:Array<{id:string,teamId:string,name:string}> = [];
   updateUser: gridListingParams={
     id: 0,
     userId:'',
@@ -44,7 +45,8 @@ export class ListingComponent implements OnInit {
     isAdmin: false,
     isTeamAdmin: false,
     isUser: false,
-     teamName: ''
+    teamName: '',
+    assignedTeamID:''
   };
   userInfo : IUserInfo ={
     id: 0,
@@ -62,6 +64,7 @@ export class ListingComponent implements OnInit {
   constructor(private sharedService: SharedService, private notificationService: NotificationService,private authService:AuthService) { }
   ngOnInit(): void {
     this.getGridListing();
+    this.getTeamPositionListing();
     this.userInfo = this.authService.getUserInfo()!;
     if(this.userInfo.isAdmin){
      this.displayedColumns = ['id', 'name', 'email', 'phone', 'salary', 'actions'];
@@ -85,6 +88,7 @@ export class ListingComponent implements OnInit {
 
 
   updateEmployeeFromPopup(){
+    console.log("Hitt API");
     let params:updateEmployeeParams=new updateEmployeeParams();
     params.id=this.updateUser.id;
     params.userId=this.updateUser.userId;
@@ -93,6 +97,7 @@ export class ListingComponent implements OnInit {
     params.phone=this.updateUser.phone;
     params.salary=this.updateUser.salary;
     params.password=this.updateUser.password;
+    params.assignedTeamID = this.updateUser.assignedTeamID;
     this.sharedService.getDataAndSetList(() => this.sharedService.GetApiResponse<Array<Object>, updateEmployeeParams>('api/Employees/updateEmployee', params), (response: any | HttpErrorResponse) => {
       if (response instanceof HttpErrorResponse) {
         this.notificationService.addAlert({ type: 'error',  message: 'Error: ' + JSON.stringify(response.error)});
@@ -119,6 +124,18 @@ export class ListingComponent implements OnInit {
         this.notificationService.addAlert({ type: 'error',  message: 'Error: ' + JSON.stringify(response.error)});
       } else {
         this.list = response;
+      }
+    }).catch((error: HttpErrorResponse) => {
+    });
+  }
+
+
+  getTeamPositionListing(){
+    this.sharedService.getDataAndSetList(() => this.sharedService.GetApiResponse<Array<{id:string,teamId:string,name:string}>,null>('api/Employees/getTeamList',null), (response: any | HttpErrorResponse) => {
+      if (response instanceof HttpErrorResponse) {
+        this.notificationService.addAlert({ type: 'error',  message: 'Error: ' + JSON.stringify(response.error)});
+      } else {
+        this.EmployeeTeamListing = response;
       }
     }).catch((error: HttpErrorResponse) => {
     });
