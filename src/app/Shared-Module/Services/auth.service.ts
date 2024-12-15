@@ -64,11 +64,12 @@ export class AuthService {
   //   }
   // }
 
-  logoutUser(): void {
+  logout(): void {
     sessionStorage.clear();
     localStorage.clear();
     this.userInfoSubject.next(null);
   }
+  
   clearUserInfo(): void {
     sessionStorage.removeItem('userInfo');
     this.userInfoSubject.next(null);

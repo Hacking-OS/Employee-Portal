@@ -91,13 +91,13 @@ export class NotificationComponent {
     });
   }
 
-  clearAlerts() {
+  clearAlerts() : void {
     this.notificationService.clearAlerts();
   }
 
 
 
-  closeNotification(index: number) {
+  closeNotification(index: number) : void {
     this.notificationService.closeNotification(index);
   }
 }

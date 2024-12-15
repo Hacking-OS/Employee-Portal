@@ -118,9 +118,7 @@ export class RequestHandlerService {
   private handleExpiredToken(error: HttpErrorResponse): Observable<HttpEvent<HttpErrorResponse>> {
     let errors = (typeof error.error === 'object') ? error.error : {message:''};
     if (error.status === 401 || error.status === 403 && ((error.error && typeof error.error  === 'object') && errors.message.includes('token'))) {
-      this.authService.clearUserInfo();
-      localStorage.clear();
-      sessionStorage.clear();
+      this.authService.logout();
       this.router.navigate(['/user/login']);
       return throwError(() => 'Session expired') as Observable<HttpEvent<HttpErrorResponse>>;
     }

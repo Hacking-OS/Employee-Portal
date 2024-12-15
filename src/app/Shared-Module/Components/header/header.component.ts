@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
   }
   logout(){
     this.notify.addAlert({type:'success',message:"User Has Logged out Successfully ! "});
-    this.authService.logoutUser();
+    this.authService.logout();
     setTimeout(()=>window.location.reload(),3500);
   }
 }
