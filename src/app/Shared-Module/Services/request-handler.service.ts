@@ -6,56 +6,6 @@ import { environment } from '../../../enviroment/environment';
 import { TokenModel } from '../Schemes/Interfaces/refreshToken.interface';
 import { Router } from '@angular/router';
 
-// @Injectable()
-// export class RequestHandlerService {
-
-//   private url:string=`${environment.baseUrl}/api/Employees/refreshToken`;
-//   constructor(public http:HttpClient,private authService:AuthService,private router:Router) {
-//     this.authService = authService;
-//   }
-
-//   // Handler
-
-//   HandleError<T = any>(error:HttpErrorResponse,continuation: () => Observable<T>):Observable<any>{
-//     const options = {
-//       headers: new HttpHeaders({
-//         'Authorization': `Bearer ${this.getAuthService().getToken()}`
-//       })
-//     }
-//     let token:TokenModel={
-//       accessToken:sessionStorage.getItem('accessToken')!,
-//       refreshToken:sessionStorage.getItem('refreshToken')!
-//     }
-//     // let token:string = "dgsoihsdoifn owef hweirn wq9rqjhw3knr oq2321oj o21ij 0joiwjqwoq2j rqwopiqjroiqu[;f]/s'f;sd][f;s][f]s[;";
-//     if(error.status===403 || error.status===401){
-//       return this.http.post<T>(this.url,token,{...options}).pipe(
-//         switchMap((response:any)=>{
-//           this.authService.setToken(response);
-//           return continuation();
-//         }),
-//         catchError(error=> {
-//           return this.handleExpiredToken(error);
-//         })
-//        );
-//     } else{
-//       return throwError(()=>error) as Observable<HttpEvent<HttpErrorResponse>>;
-//     }
-
-//   }
-
-//   handleExpiredToken(error:HttpErrorResponse):Observable<HttpEvent<HttpErrorResponse>>{
-//     this.authService.clearUserInfo();
-//     localStorage.clear();
-//     sessionStorage.clear();
-//     this.router.navigate(['/user/login']);
-//     return throwError(()=>error) as Observable<HttpEvent<HttpErrorResponse>>;
-//   }
-
-//   protected getAuthService(): AuthService {
-//     return this.authService;
-//   }
-// }
-
 @Injectable()
 export class RequestHandlerService {
 
