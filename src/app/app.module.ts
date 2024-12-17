@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -27,6 +27,7 @@ import { AuthService } from './Shared-Module/Services/auth.service';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ManagementModule } from './Management-Module/management.module';
+import { ErrorHandlerService } from './Shared-Module/Services/error-handler.service';
 
 @NgModule({
   declarations: [AppComponent ],
@@ -57,7 +58,8 @@ import { ManagementModule } from './Management-Module/management.module';
     AuthService,
     SharedService,
     // SharedEndPointService,
-    UserDoesNotExistGuard,UserExistsGuard
+    UserDoesNotExistGuard,UserExistsGuard,
+    { provide:ErrorHandlerService, useClass:ErrorHandler , multi:true }
   ],
   bootstrap: [AppComponent]
 })
