@@ -1,9 +1,26 @@
-import { Injectable } from '@angular/core';
+import { NotificationService } from './../Components/notification/notification.AlertService';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ErrorHandler, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ErrorHandlerService {
+export class ErrorHandlerService extends ErrorHandler {
 
-  constructor() { }
+  constructor(private notificationService:NotificationService) {
+    super();
+  }
+
+  override handleError(error: any): void {
+
+  }
+
+  errorShowMessage(error:HttpErrorResponse) {
+    if (typeof error.error === 'object') {
+       this.notificationService.addAlert({type:'error',message:error.error.message});
+    } else if (typeof error.error === 'string') { {
+      this.notificationService.addAlert({type:'error',message:error.error});
+     }
+   }
+  }
 }
