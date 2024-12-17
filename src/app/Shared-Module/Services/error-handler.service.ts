@@ -12,10 +12,10 @@ export class ErrorHandlerService extends ErrorHandler {
   }
 
   override handleError(error: any): void {
-
+       this.errorShowMessage(error);
   }
 
-  errorShowMessage(error:HttpErrorResponse) {
+  errorShowMessage(error:HttpErrorResponse) : void {
     if (typeof error.error === 'object') {
        this.notificationService.addAlert({type:'error',message:error.error.message});
     } else if (typeof error.error === 'string') { {
