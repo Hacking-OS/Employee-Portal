@@ -6,9 +6,7 @@ import { RequestHandlerService } from './request-handler.service';
 import { environment } from '../../../enviroment/environment';
 import { Router } from '@angular/router';
 
-@Injectable({
-  providedIn: 'root'  // Ensure this service is provided in the root injector
-})
+@Injectable()
 export class SharedEndPointService extends RequestHandlerService {
 
   constructor(http: HttpClient, authService: AuthService , router:Router) {

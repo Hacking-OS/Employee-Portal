@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable, catchError, tap, throwError } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { SharedEndPointService } from './shared-end-point.service';
+import { Router } from '@angular/router';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
-  constructor(
-    private sharedEndPointService: SharedEndPointService
-  ) { }
+  private sharedEndPointService:SharedEndPointService;
+  constructor(http:HttpClient,router:Router,auth:AuthService) {
+    this.sharedEndPointService = new SharedEndPointService(http,auth,router);
+   }
 
   GetApiResponse<responseType, T>(path: string, obj: T): Observable<responseType> {
     return this.sharedEndPointService.GetApiResponse<responseType, T>(path, obj);
