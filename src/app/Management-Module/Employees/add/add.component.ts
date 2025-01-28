@@ -36,7 +36,7 @@ export class AddComponent {
  }
 
   onSubmit() {
-    this.sharedService.getDataAndSetList(() => this.sharedService.GetApiResponse<Employee,Employee>('api/Employees/AddEmployee',this.employee), (response: any | HttpErrorResponse) => {
+    this.sharedService.getDataAndSetList<Employee>(() => this.sharedService.GetApiResponse<Employee,Employee>('api/Employees/AddEmployee',this.employee), (response: Employee) => {
         this.notificationService.addAlert({ type: 'success',  message: 'Employee Added SuccessFully !'});
         setTimeout(()=>{
           this.router.navigate(['page','listing']);
@@ -45,7 +45,7 @@ export class AddComponent {
   }
 
     getTeamPositionListing(){
-      this.sharedService.getDataAndSetList(() => this.sharedService.GetApiResponse<Array<{id:string,teamId:string,name:string}>,null>('api/Employees/getTeamList',null), (response: any) => {
+      this.sharedService.getDataAndSetList<Array<{id:string,teamId:string,name:string}>>(() => this.sharedService.GetApiResponse<Array<{id:string,teamId:string,name:string}>,null>('api/Employees/getTeamList',null), (response: Array<{id:string,teamId:string,name:string}>) => {
           this.EmployeeTeamListing = response;
       });
     }
