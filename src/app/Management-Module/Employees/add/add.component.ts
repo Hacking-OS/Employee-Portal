@@ -37,15 +37,11 @@ export class AddComponent {
 
   onSubmit() {
     this.sharedService.getDataAndSetList(() => this.sharedService.GetApiResponse<Employee,Employee>('api/Employees/AddEmployee',this.employee), (response: any | HttpErrorResponse) => {
-      if (response instanceof HttpErrorResponse) {
-        this.notificationService.addAlert({ type: 'error',  message: 'Error: ' + JSON.stringify(response.error)});
-      } else {
         this.notificationService.addAlert({ type: 'success',  message: 'Employee Added SuccessFully !'});
         setTimeout(()=>{
           this.router.navigate(['page','listing']);
         },5000);
-      }
-    });
+      });
   }
 
     getTeamPositionListing(){
