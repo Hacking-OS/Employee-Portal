@@ -14,11 +14,17 @@ import { SharedModule } from "../Shared-Module/shared.module";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { DepartmentComponent } from './department/department.component';
 import { DepartmentListingComponent } from './department-listing/department-listing.component';
+import { AddComponent } from './Employees/add/add.component';
+import { UpdateComponent } from './Employees/update/update.component';
+import { RemoveComponent } from './Employees/remove/remove.component';
 
 @NgModule({
   declarations: [
     DepartmentComponent,
     DepartmentListingComponent,
+    AddComponent,
+    UpdateComponent,
+    RemoveComponent,
   ],
   imports: [
     CommonModule,

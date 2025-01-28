@@ -23,7 +23,7 @@ export class UserExistsGuard implements CanActivate {
     return this.authService.isAuthenticated().pipe(
       map(isAuthenticated => {
         if (!isAuthenticated) {
-          console.log('User is not authenticated. Redirecting to /Home...');
+          console.log('User is Authenticated. Can be Redirected to /Home...');
           this.router.navigate(['/page/home']);
           return false; // Prevent navigation to the requested route
         }

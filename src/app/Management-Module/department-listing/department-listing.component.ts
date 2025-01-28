@@ -17,18 +17,18 @@ export class DepartmentListingComponent {
 
   ngOnInit(): void {
   this.displayedColumns = ['teamGroupName', 'employeeName'];
-    const teamName = this.route.snapshot.queryParamMap.get('teamName');
+    const teamName = this.route.snapshot.queryParamMap.get('teamId');
     if(!teamName){
       this.router.navigate(['/manage/department']);
       return;
     }
     // Simulate API call with delay
-    this.sharedService.getDataAndSetList<IDeptList[]>(()=>this.sharedService.GetApiResponse<IDeptList[],{TeamGroupName:string}>('api/Employees/GetTeamsDetails', {TeamGroupName:teamName}),(response)=>{
-      this.list = response.filter(x => x.teamGroupName !== 'Admin').map(x => ({ teamGroupName: x.teamGroupName, employeeName: x.employeeName }));
-      this.deptAdminName = response.filter(x => x.teamGroupName === 'Admin').map(x => ({ teamGroupName: x.teamGroupName, employeeName: x.employeeName }))[0];
+    this.sharedService.getDataAndSetList<IDeptList[]>(()=>this.sharedService.GetApiResponse<IDeptList[],{teamId:string}>('api/Employees/GetTeamsDetails', {teamId:teamName}),(response)=>{
+      this.list = response.filter(x => x.isAdmin !== true);
+      this.deptAdminName = response.filter(x => x.isAdmin === true)[0];
       setTimeout(() => {
       this.loading = false;
-    }, 5000);
+    }, 3000);
     });
     // setTimeout(() => {
     //   this.getEmployeeCounts().subscribe(

@@ -65,18 +65,8 @@ export class UserLoginComponent implements OnInit {
               this.isSubmitting=false;
               this.router.navigate(['/page/listing']);
               // this.router.navigate(['/page/Home']);
-            }, 4000);
-          }
-      ).catch(error => {
-        console.error('Login failed:', error);
-        setTimeout(()=>{
-        this.isSubmitting=false;
-      }, 4000);
-        this.notification.addAlert({
-          type: 'error',
-          message: 'Error: ' + JSON.stringify(error?.message??"Something Went Wrong!")
-        });
-      });
+            }, 3000);
+          });
     }
   }
 

@@ -59,7 +59,8 @@ import { ErrorHandlerService } from './Shared-Module/Services/error-handler.serv
     SharedService,
     // SharedEndPointService,
     UserDoesNotExistGuard,UserExistsGuard,
-    { provide:ErrorHandlerService, useClass:ErrorHandler , multi:true }
+    { provide:ErrorHandler, useClass:ErrorHandlerService }
+    // { provide:ErrorHandlerService, useClass:ErrorHandler , multi:true }
   ],
   bootstrap: [AppComponent]
 })

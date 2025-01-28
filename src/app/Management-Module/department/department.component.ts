@@ -28,7 +28,7 @@ export class DepartmentComponent {
       this.list = response;
       setTimeout(() => {
       this.loading = false;
-    }, 5000);
+    }, 2000);
     });
     // setTimeout(() => {
     //   this.getEmployeeCounts().subscribe(

@@ -5,6 +5,7 @@ import { ErrorHandler, Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
+// export class ErrorHandlerService extends ErrorHandler {
 export class ErrorHandlerService extends ErrorHandler {
 
   constructor(private notificationService:NotificationService) {
@@ -17,7 +18,7 @@ export class ErrorHandlerService extends ErrorHandler {
 
   errorShowMessage(error:HttpErrorResponse) : void {
     if (typeof error.error === 'object') {
-       this.notificationService.addAlert({type:'error',message:error.error.message});
+       this.notificationService.addAlert({type:'error',message:error.error.message ?? error.error[0]});
     } else if (typeof error.error === 'string') { {
       this.notificationService.addAlert({type:'error',message:error.error});
      }

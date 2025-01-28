@@ -1,6 +1,7 @@
 <!-- {{ list|json }} -->
  <app-header></app-header>
  <app-notification></app-notification>
+ <button type="button" class="btn btn-primary mt-5 mx-5" (click)="redirectTo(['manage','addEmployee'])"> Add Employee</button>
 <mat-card class="item-card">
   <mat-table [dataSource]="list" class="mat-elevation-z8">
 
@@ -32,8 +33,8 @@
       <mat-header-cell *matHeaderCellDef> Salary </mat-header-cell>
       <mat-cell *matCellDef="let item"> {{item.salary}} </mat-cell>
     </ng-container>
-    <!-- salary Column -->
-    <ng-container *ngIf="!userInfo.isAdmin" matColumnDef="position">
+    <!-- Position Column -->
+    <ng-container *ngIf="userInfo.isAdmin" matColumnDef="position">
       <mat-header-cell *matHeaderCellDef> Position </mat-header-cell>
       <mat-cell *matCellDef="let item"> {{item.teamName}} </mat-cell>
     </ng-container>

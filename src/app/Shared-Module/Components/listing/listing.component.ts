@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationService } from '../notification/notification.AlertService';
 import { gridListingParams, updateEmployeeParams } from '../../Schemes/models/listing.model';
 import { IUserInfo } from '../../Schemes/Interfaces/userInfo.interface';
+import { Router } from '@angular/router';
 declare var bootstrap: {
   Modal: new (element: HTMLElement, options?: Partial<ModalOptions>) => ModalInstance;
 };
@@ -61,13 +62,13 @@ export class ListingComponent implements OnInit {
     teamName: ''
   }
   displayedColumns: string[]=[]; // Columns to display
-  constructor(private sharedService: SharedService, private notificationService: NotificationService,private authService:AuthService) { }
+  constructor(private sharedService: SharedService, private notificationService: NotificationService,private authService:AuthService,private router:Router) { }
   ngOnInit(): void {
     this.getGridListing();
     this.getTeamPositionListing();
     this.userInfo = this.authService.getUserInfo()!;
     if(this.userInfo.isAdmin){
-     this.displayedColumns = ['id', 'name', 'email', 'phone', 'salary', 'actions'];
+     this.displayedColumns = ['id', 'name', 'email', 'phone', 'salary', 'position' , 'actions'];
     } else {
      this.displayedColumns = ['id', 'name', 'position', 'actions'];
     }
@@ -98,16 +99,12 @@ export class ListingComponent implements OnInit {
     params.salary=this.updateUser.salary;
     params.password=this.updateUser.password;
     params.assignedTeamID = this.updateUser.assignedTeamID;
-    this.sharedService.getDataAndSetList(() => this.sharedService.GetApiResponse<Array<Object>, updateEmployeeParams>('api/Employees/updateEmployee', params), (response: any | HttpErrorResponse) => {
-      if (response instanceof HttpErrorResponse) {
-        this.notificationService.addAlert({ type: 'error',  message: 'Error: ' + JSON.stringify(response.error)});
-      } else {
+    params.isAdmin = this.authService.getUserInfo()?.isAdmin || false;
+    this.sharedService.getDataAndSetList(() => this.sharedService.GetApiResponse<Array<Object>, updateEmployeeParams>('api/Employees/updateEmployee', params), (response: any) => {
         this.notificationService.addAlert({type:'success',message:"User " + response.name +" updated Successfully!"});
         this.getGridListing();
         this.modelPopupInstance.hide();
-      }
-    }).catch((error: HttpErrorResponse) => {
-    })
+    });
   }
 
   ngAfterViewInit(): void {
@@ -120,24 +117,18 @@ export class ListingComponent implements OnInit {
 
   getGridListing(){
     this.sharedService.getDataAndSetList(() => this.sharedService.GetApiResponse<Array<Object>, {id:string}>('api/Employees/GetEmployees',{id:this.authService.getUserInfo()!?.userId}), (response: any | HttpErrorResponse) => {
-      if (response instanceof HttpErrorResponse) {
-        this.notificationService.addAlert({ type: 'error',  message: 'Error: ' + JSON.stringify(response.error)});
-      } else {
         this.list = response;
-      }
-    }).catch((error: HttpErrorResponse) => {
     });
   }
 
 
   getTeamPositionListing(){
-    this.sharedService.getDataAndSetList(() => this.sharedService.GetApiResponse<Array<{id:string,teamId:string,name:string}>,null>('api/Employees/getTeamList',null), (response: any | HttpErrorResponse) => {
-      if (response instanceof HttpErrorResponse) {
-        this.notificationService.addAlert({ type: 'error',  message: 'Error: ' + JSON.stringify(response.error)});
-      } else {
+    this.sharedService.getDataAndSetList(() => this.sharedService.GetApiResponse<Array<{id:string,teamId:string,name:string}>,null>('api/Employees/getTeamList',null), (response: any) => {
         this.EmployeeTeamListing = response;
-      }
-    }).catch((error: HttpErrorResponse) => {
     });
+  }
+
+  redirectTo(path:string[]):void {
+    this.router.navigate(path);
   }
 }

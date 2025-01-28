@@ -23,4 +23,5 @@ export class updateEmployeeParams {
   phone!: string;
   salary!: number;
   assignedTeamID!: string;
+  isAdmin:boolean = false;
 }

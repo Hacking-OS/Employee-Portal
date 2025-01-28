@@ -1,0 +1,71 @@
+<app-header></app-header>
+<app-notification></app-notification>
+<div class="container-fluid mt-5">
+    <h2 class="text-center mb-4">Add Employee</h2>
+
+    <form (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" id="name" class="form-control" [(ngModel)]="employee.name" name="name" required
+                    placeholder="Enter employee name" />
+            </div>
+
+            <div class="col-md-6">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" id="email" class="form-control" [(ngModel)]="employee.email" name="email" required
+                    placeholder="Enter employee email" />
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="password" class="form-label">Password:</label>
+                <input type="password" id="password" class="form-control" [(ngModel)]="employee.password"
+                    name="password" required placeholder="Enter password" />
+            </div>
+
+            <div class="col-md-6">
+                <label for="phone" class="form-label">Phone:</label>
+                <input type="text" id="phone" class="form-control" [(ngModel)]="employee.phone" name="phone" required
+                    placeholder="Enter phone number" />
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="salary" class="form-label">Salary:</label>
+                <input type="number" id="salary" class="form-control" [(ngModel)]="employee.salary" name="salary"
+                    required placeholder="Enter salary" />
+            </div>
+
+            <div class="col-md-6">
+                <label for="isAdmin" class="form-label me-2">Is Admin:</label>
+                <input type="checkbox" id="isAdmin" class="form-check-input" [(ngModel)]="employee.isAdmin"
+                    name="isAdmin" />
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="isTeamAdmin" class="form-label me-2">Is Team Admin:</label>
+                <input type="checkbox" id="isTeamAdmin" class="form-check-input" [(ngModel)]="employee.isTeamAdmin"
+                    name="isTeamAdmin" />
+            </div>
+
+            <div class="col-md-6">
+                <label for="assignedTeamID" class="form-label">Assigned Team:</label>
+                <select class="form-control" id="EmployeeTeamListing" name="EmployeeTeamListing"
+                    [(ngModel)]="employee.assignedTeamID">
+                    <option *ngFor="let team of EmployeeTeamListing" [value]="team.teamId">
+                        {{ team.name }}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center mt-4">
+            <button type="submit" class="btn btn-primary px-5 py-2">Add Employee</button>
+        </div>
+    </form>
+</div>

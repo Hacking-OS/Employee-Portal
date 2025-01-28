@@ -22,12 +22,12 @@
 
     <div *ngIf="!loading" class="row">
     <!-- Card 1: Distinct Employee Count -->
-    <div *ngFor="let item of list" class="col-md-6"  [routerLink]="'/manage/departmentlisting'" [queryParams]="{teamName:item.teamGroupName}">
+    <div *ngFor="let item of list" class="col-md-6"  [routerLink]="'/manage/departmentlisting'" [queryParams]="{teamId:item.teamGroupId}">
       <div class="card text-white mb-3"  [style]="'background:'+ getRandomColorCode()">
         <div class="card-header">Employee Department</div>
         <div class="card-body">
-          <h5 class="card-title">{{ item.teamGroupName }}</h5>
-          <p class="card-text">Total Employees in this Department are : ( {{ item.count }}  )</p>
+          <h5 class="card-title">{{ item.teamName }}</h5>
+          <p class="card-text">Total Employees in this Department are : ( {{ item.employeeCount }}  )</p>
         </div>
       </div>
     </div>
