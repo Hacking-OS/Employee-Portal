@@ -35,7 +35,8 @@ export class UpdateComponent {
   //Add 'implements OnInit' to the class.
    // First, try using Router (works if the component is freshly navigated to)
    const navigation = this.router.getCurrentNavigation();
-   this.employeeData = (navigation?.extras.state as any)?.data;
+   this.employeeData = navigation?.extras.state?.data;
+  //  this.employeeData = (navigation?.extras.state as any)?.data;
 
    // Fallback: If the above doesn't work (e.g., page refresh), use window.history.state
    if (!this.employeeData) {
