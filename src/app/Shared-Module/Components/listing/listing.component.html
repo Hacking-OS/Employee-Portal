@@ -44,6 +44,7 @@
       <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
       <mat-cell *matCellDef="let item">
         <button *ngIf="userInfo.isAdmin" mat-button color="primary" class="btn btn-primary me-2" (click)="onEdit(item)" [disabled]="item.isAdmin">Edit</button>
+        <button *ngIf="userInfo.isAdmin && userInfo.isTeamAdmin && userInfo.isUser" mat-button color="primary" class="btn btn-primary me-2" (click)="onUpdateUserByID(item)" [disabled]="item.isAdmin">Update Details</button>
         <button *ngIf="userInfo.isAdmin" mat-button color="warn" class="btn btn-danger" (click)="onDelete(item)">Delete</button>
         <button *ngIf="!userInfo.isAdmin && !userInfo.isTeamAdmin && userInfo.isUser == true" mat-button color="info" class="btn btn-info"  (click)="onEdit(item)">View</button>
       </mat-cell>

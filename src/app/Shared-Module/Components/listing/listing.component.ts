@@ -73,13 +73,23 @@ export class ListingComponent implements OnInit {
      this.displayedColumns = ['id', 'name', 'position', 'actions'];
     }
   }
+
+
+  onUpdateUserByID(item: gridListingParams): void { 
+    console.log('Navigating with item:', item);  // Debugging log to ensure the correct data
+    this.router.navigate(['manage', 'updateEmployee'], { 
+      state: { data: item }  // Ensure key 'data' doesn't have quotes unless necessary
+    });
+  }
+  
+
   onEdit(item: gridListingParams) {
     console.log('item');
     console.log(item);
     // new bootstrap(this.)
     this.updateUser = item;
     this.modelPopupInstance.show();
-    this.notificationService.addAlert({ type: 'info', message: 'info: '+ item.name })
+    this.notificationService.addAlert({ type: 'info', message: 'info: '+ item.name });
 }
   onDelete(item: gridListingParams) {
     console.log('item');

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
 import { Employee } from '../Models/Employee.model';
 import { SharedService } from '../../../Shared-Module/Services/shared.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationService } from '../../../Shared-Module/Components/notification/notification.AlertService';
 import { Router } from '@angular/router';
 @Component({
