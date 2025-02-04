@@ -18,18 +18,14 @@ export class SharedService {
     return this.sharedEndPointService.GetApiResponse<responseType, T>(path, obj);
   }
 
-  async getDataAndSetList<T>(getData: () => Observable<T>, setData: (responseData: T) => void): Promise<T> {
+  async getDataAndSetList<T>(Subscrible_Observable: () => Observable<T>, Observable_Response: (responseData: T) => void,Error?:(error:HttpErrorResponse) => void): Promise<T> {
     return new Promise<T>((resolve, reject) => {
-      getData().pipe(
-        tap((response: T) => setData(response)),
-        catchError((error: HttpErrorResponse) => {
-          console.error('HTTP error occurred:', error);
-          return throwError(() => error);
-          // return throwError(() => new Error('Error occurred while fetching data.'));
-        })
-      ).subscribe({
+      Subscrible_Observable().pipe(tap((response: T) => Observable_Response(response))).subscribe({
         next: (response: T) => resolve(response),
-        error: (error: any) => reject(error)
+        error: (error: HttpErrorResponse) => {
+          (Error) ? Error(error) : null;
+          reject(error);
+        }
       });
     });
   }

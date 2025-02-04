@@ -18,7 +18,11 @@ export class ErrorHandlerService extends ErrorHandler {
 
   errorShowMessage(error:HttpErrorResponse) : void {
     if (typeof error.error === 'object') {
-       this.notificationService.addAlert({type:'error',message:error.error.message ?? error.error[0]});
+      if (error.status === 401 || error.status === 403 || error.status === 404 || error.status === 405 || error.status === 406) {
+        this.notificationService.addAlert({type:'error',message:error.error.message ?? error.error[0] ?? error?.message});
+      } else {
+        console.error(error.error.message ?? error.error[0] ?? error?.message);
+      }
     } else if (typeof error.error === 'string') { {
       this.notificationService.addAlert({type:'error',message:error.error});
      }
