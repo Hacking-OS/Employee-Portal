@@ -50,21 +50,15 @@ export class UserLoginComponent implements OnInit {
     this.isSubmitting=true;
     if (this.loginForm.valid) {
       const loginData = this.loginForm.value;
-      this.sharedService.getDataAndSetList(
-        () => this.sharedService.GetApiResponse<LoginResponse, { email: string; password: string }>('api/Employees/Login', loginData),
-        (response: LoginResponse) => {
+      this.sharedService.getDataAndSetList(() => this.sharedService.GetApiResponse<LoginResponse, { email: string; password: string }>('api/Employees/Login', loginData), (response: LoginResponse) => {
             console.log(response);
-            this.notification.addAlert({
-              type: 'success',
-              message: 'Login Successful!'
-            });
+            this.notification.addAlert({ type: 'success',  message: 'Login Successful!' });
             // sessionStorage.setItem('userInfo', JSON.stringify(response));
             this.authService.setUserInfo(JSON.stringify(response.employee));
             this.authService.setToken(response);
             setTimeout(()=>{
               this.isSubmitting=false;
               this.router.navigate(['/page/listing']);
-              // this.router.navigate(['/page/Home']);
             }, 3000);
           });
     }
