@@ -1,0 +1,94 @@
+/* .loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; 
+}
+
+.card.loader2 {
+  background: transparent;
+  box-shadow: none;
+  text-align: center;
+}
+
+.loading-text {
+  color: white;
+  margin-top: 10px;
+  font-size: 1.2rem;
+} */
+
+
+
+/* Full-page overlay */
+.loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Dark background with some opacity */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  /* Loader container (dots) */
+  .loader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Each loader dot style */
+  .loader-dot {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: linear-gradient(270deg, #4A148C, #6A1B9A, #8E24AA, #AB47BC);
+    background-size: 400% 400%;
+    animation: glow 2s infinite ease-in-out, gradientShift 5s infinite linear;
+  }
+  
+  /* Glowing effect for dots */
+  @keyframes glow {
+    0%, 100% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.5);
+    }
+  }
+  
+  /* Animate the gradient color shifting */
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  /* Delaying each dot's animation */
+  .loader-dot:nth-child(1) {
+    animation-delay: 0s;
+  }
+  .loader-dot:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .loader-dot:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  

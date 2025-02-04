@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { provideHttpClient } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, provideHttpClient } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatCardModule } from "@angular/material/card";
@@ -14,6 +14,7 @@ import { UserSignupComponent } from "./user-signup/user-signup.component";
 import { UserRoutingModule } from "./user-routing.module";
 import { SharedModule } from "../Shared-Module/shared.module";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { BusyInterceptor } from "../Shared-Module/Interceptors/busy.interceptor";
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 ],
   providers: [
     // provideClientHydration(),
+  //  { provide: HTTP_INTERCEPTORS, useClass: BusyInterceptor, multi: true },
     provideHttpClient(),
     // NotificationService,SharedService,SharedEndPointService
   ],

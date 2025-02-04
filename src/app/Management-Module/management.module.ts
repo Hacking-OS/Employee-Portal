@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { provideHttpClient } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, provideHttpClient } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatCardModule } from "@angular/material/card";
@@ -17,6 +17,7 @@ import { DepartmentListingComponent } from './department-listing/department-list
 import { AddComponent } from './Employees/add/add.component';
 import { UpdateComponent } from './Employees/update/update.component';
 import { RemoveComponent } from './Employees/remove/remove.component';
+import { BusyInterceptor } from "../Shared-Module/Interceptors/busy.interceptor";
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { RemoveComponent } from './Employees/remove/remove.component';
 ],
   providers: [
     // provideClientHydration(),
+    // { provide: HTTP_INTERCEPTORS, useClass: BusyInterceptor, multi: true },
     provideHttpClient(),
     // NotificationService,SharedService,SharedEndPointService
   ],

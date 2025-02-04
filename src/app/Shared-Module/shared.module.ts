@@ -12,18 +12,21 @@ import { SharedRoutingModule } from './shared-routing.module';
 import { ListingComponent } from './Components/listing/listing.component';
 import { NotificationComponent } from './Components/notification/notification.component';
 import { NotificationService } from './Components/notification/notification.AlertService'; // Update import path
-import { provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
 import { HomeComponent } from './Components/home/home.component';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { HeaderComponent } from './Components/header/header.component';
 import { MatSelectModule } from '@angular/material/select';
+import { LoaderComponent } from './Components/loader/loader.component';
+import { BusyInterceptor } from './Interceptors/busy.interceptor';
 
 @NgModule({
   declarations: [
     ListingComponent,
     NotificationComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoaderComponent
   ],
   imports: [
     CommonModule,
@@ -41,12 +44,16 @@ import { MatSelectModule } from '@angular/material/select';
     NgxMaskPipe,
     MatSelectModule
   ],
-  providers: [provideNgxMask(),provideHttpClient(),NotificationService], // Provide the service here
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: BusyInterceptor, multi: true },
+    provideNgxMask(),provideHttpClient(),NotificationService
+  ], // Provide the service here
   exports: [
     ListingComponent,
     NotificationComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoaderComponent
   ]
 })
 export class SharedModule { }
