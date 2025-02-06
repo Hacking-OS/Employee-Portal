@@ -21,7 +21,6 @@ export class UserExistsGuard implements CanActivate {
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     return this.authService.isAuthenticated().pipe(
-      delay(10000),
       map(isAuthenticated => {
         if (!isAuthenticated) {
           console.log('User is Authenticated. Can be Redirected to /Home...');

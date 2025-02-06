@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatCardModule } from "@angular/material/card";
@@ -46,8 +46,8 @@ import { BusyInterceptor } from "../Shared-Module/Interceptors/busy.interceptor"
 ],
   providers: [
     // provideClientHydration(),
-    // { provide: HTTP_INTERCEPTORS, useClass: BusyInterceptor, multi: true },
-    provideHttpClient(withInterceptors([BusyInterceptor])),
+    provideHttpClient(withInterceptorsFromDi()),
+    { provide: HTTP_INTERCEPTORS, useClass: BusyInterceptor, multi: true },
     // NotificationService,SharedService,SharedEndPointService
   ],
   // bootstrap: [AppComponent]

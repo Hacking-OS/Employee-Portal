@@ -1,32 +1,39 @@
-import { inject } from '@angular/core';
-import { HttpInterceptorFn } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { finalize, catchError } from 'rxjs/operators';
 import { BusyService } from './busy.service';
 import { LoadingService } from './loading.service';
-import { finalize, catchError } from 'rxjs/operators';
 
-export const BusyInterceptor: HttpInterceptorFn = (req, next) => {
-  const busyService = inject(BusyService);          // Injecting BusyService
-  const loadingService = inject(LoadingService);    // Injecting LoadingService
+@Injectable()
+export class BusyInterceptor implements HttpInterceptor {
 
-  console.log('BusyInterceptor triggered:', req.url);
-  const msg = req.method === 'GET' ? 'Loading ...' : 'Saving ...';
-  console.log(msg);
+  constructor(private busyService: BusyService, private loadingService: LoadingService) {}
 
-  // Set loading state to true when request starts
-  loadingService.setLoadingState(true);
-  busyService.increment(msg);
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const msg = req.method === 'GET' ? 'Loading ...' : 'Saving ...';
+    // logMessage(`${prefixReq} ⚙️ Busy Spinner`, ['Incrementing the busy spinner']);
 
-  return next(req).pipe(
-    finalize(() => {
-      setTimeout(() => {
-        loadingService.setLoadingState(false);
-        busyService.decrement();
-      }, 2000);  // Delay to simulate slower response (adjust if needed)
-    }),
-    catchError((error) => {
-      loadingService.setLoadingState(false);  // Ensure loading state is off on error
-      busyService.decrement();
-      throw error;  // Propagate the error
-    })
-  );
-};
+    // Set loading state to true when request starts
+    this.loadingService.setLoadingState(true);
+    this.busyService.increment(msg);
+
+    return next.handle(req).pipe(
+      finalize(() => {
+        // Use setTimeout to simulate a delay (adjust timing as needed)
+        setTimeout(() => {
+          // Set loading state to false after a delay
+          this.loadingService.setLoadingState(false);
+          this.busyService.decrement();
+          // logMessage(`${prefixRes} ⚙️ Busy Spinner`, ['Decrementing the busy spinner']);
+        }, 2000); // Adjust timeout delay as per your requirement
+      }),
+      catchError((error) => {
+        // Handle errors and ensure loading state is properly managed
+        this.loadingService.setLoadingState(false); // Ensure loading state is set to false on error
+        this.busyService.decrement();
+        throw error; // Re-throw the error to propagate it downstream
+      })
+    );
+  }
+}

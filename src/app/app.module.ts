@@ -17,7 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { NotificationService } from './shared-module/Components/notification/notification.AlertService';
 import { SharedService } from './Shared-Module/Services/shared.service';
 // import { SharedEndPointService } from './Shared-Module/Services/shared-end-point.service';
-import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 // import { NotificationComponent } from './Shared-Module/Components/notification/notification.component';
 import { UserModule } from './User-Module/user.module';
 import { SharedModule } from './Shared-Module/shared.module';
@@ -53,7 +53,9 @@ import { BusyInterceptor } from './Shared-Module/Interceptors/busy.interceptor';
     ManagementModule
   ],
   providers: [
-    provideHttpClient(),
+    provideHttpClient(
+      withInterceptorsFromDi()
+    ),
     // NotificationService,
     provideNgxMask(),
     AuthService,
@@ -61,7 +63,7 @@ import { BusyInterceptor } from './Shared-Module/Interceptors/busy.interceptor';
     // SharedEndPointService,
     UserDoesNotExistGuard,UserExistsGuard,
     { provide:ErrorHandler, useClass:ErrorHandlerService },
-    // { provide: HTTP_INTERCEPTORS, useClass: BusyInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: BusyInterceptor, multi: true },
     // { provide:ErrorHandlerService, useClass:ErrorHandler , multi:true }
   ],
   bootstrap: [AppComponent]

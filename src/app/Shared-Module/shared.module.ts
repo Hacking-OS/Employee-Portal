@@ -12,7 +12,7 @@ import { SharedRoutingModule } from './shared-routing.module';
 import { ListingComponent } from './Components/listing/listing.component';
 import { NotificationComponent } from './Components/notification/notification.component';
 import { NotificationService } from './Components/notification/notification.AlertService'; // Update import path
-import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { HomeComponent } from './Components/home/home.component';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { HeaderComponent } from './Components/header/header.component';
@@ -45,8 +45,8 @@ import { BusyInterceptor } from './Interceptors/busy.interceptor';
     MatSelectModule
   ],
   providers: [
+    provideNgxMask(),provideHttpClient(withInterceptorsFromDi()),NotificationService,
     { provide: HTTP_INTERCEPTORS, useClass: BusyInterceptor, multi: true },
-    provideNgxMask(),provideHttpClient(),NotificationService
   ], // Provide the service here
   exports: [
     ListingComponent,
