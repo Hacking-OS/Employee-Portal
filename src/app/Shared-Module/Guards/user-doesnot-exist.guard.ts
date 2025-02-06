@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, delay, map, tap } from 'rxjs/operators';
 import { AuthService } from '../Services/auth.service'; // Adjust the path as necessary
 
 @Injectable({
@@ -23,6 +23,7 @@ export class UserDoesNotExistGuard implements CanActivate {
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     return this.authService.isAuthenticated().pipe(
+      delay(10000),
       map(isAuthenticated => {
         if (!isAuthenticated) {
           console.log('User is not authenticated. Redirecting to /Home...');

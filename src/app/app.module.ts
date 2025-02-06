@@ -61,7 +61,7 @@ import { BusyInterceptor } from './Shared-Module/Interceptors/busy.interceptor';
     // SharedEndPointService,
     UserDoesNotExistGuard,UserExistsGuard,
     { provide:ErrorHandler, useClass:ErrorHandlerService },
-    { provide: HTTP_INTERCEPTORS, useClass: BusyInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: BusyInterceptor, multi: true },
     // { provide:ErrorHandlerService, useClass:ErrorHandler , multi:true }
   ],
   bootstrap: [AppComponent]

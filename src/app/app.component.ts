@@ -10,8 +10,9 @@ import { observeOn, asapScheduler, delay } from 'rxjs';
 export class AppComponent {
   title = 'Employee-Portal-System';
   busy: boolean = false;
-  constructor(private busyService:BusyService){}
+  constructor(private busyService:BusyService){
+    this.busyService.busyState$.pipe(observeOn(asapScheduler)).subscribe((bs: BusyPayload) => (this.busy = bs.isBusy));
+  }
   ngOnInit(): void {
-    this.busyService.busyState$.pipe(observeOn(asapScheduler),delay(10000)).subscribe((bs: BusyPayload) => (this.busy = bs.isBusy));
   }
 }
