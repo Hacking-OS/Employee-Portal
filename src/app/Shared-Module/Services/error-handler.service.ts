@@ -18,8 +18,13 @@ export class ErrorHandlerService extends ErrorHandler {
 
   errorShowMessage(error:HttpErrorResponse) : void {
     if (typeof error.error === 'object') {
-      if (error.status === 401 || error.status === 403 || error.status === 404 || error.status === 405 || error.status === 406) {
-        this.notificationService.addAlert({type:'error',message:error.error.message ?? error.error[0] ?? error?.message});
+      if (error.status === 400 || error.status === 401 || error.status === 403 || error.status === 404 || error.status === 405 || error.status === 406) {
+        if (error.error[0].includes('token')) {
+          this.notificationService.addAlert({type:'error',message:"Session Expired"});
+        } else {
+          this.notificationService.addAlert({type:'error',message:error.error.message ?? error.error[0] ?? error?.message});
+        }
+    
       } else {
         console.error(error.error.message ?? error.error[0] ?? error?.message);
       }

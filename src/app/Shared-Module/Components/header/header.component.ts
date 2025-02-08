@@ -4,6 +4,7 @@ import { AuthService } from './../../Services/auth.service';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { IUserInfo } from '../../Schemes/Interfaces/userInfo.interface';
 import { NotificationService } from '../notification/notification.AlertService';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -23,7 +24,7 @@ export class HeaderComponent implements OnInit {
    isUser: false,
    teamName: ''
  };
- constructor(@Inject(PLATFORM_ID) private platformId: Object,private authService:AuthService,private notify:NotificationService) {
+ constructor(@Inject(PLATFORM_ID) private platformId: Object,private authService:AuthService,private notify:NotificationService,private router:Router) {
   this.userInfo = this.authService.getUserInfo()!;
  }
   ngOnInit(): void {
@@ -31,6 +32,8 @@ export class HeaderComponent implements OnInit {
 
 
   }
+
+  
   logout(){
     this.notify.addAlert({type:'success',message:"User Has Logged out Successfully ! "});
     this.authService.logout();
