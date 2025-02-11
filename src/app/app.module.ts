@@ -1,5 +1,5 @@
 import { ErrorHandler, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -53,6 +53,7 @@ import { BusyInterceptor } from './Shared-Module/Interceptors/busy.interceptor';
     ManagementModule
   ],
   providers: [
+    provideClientHydration(),
     provideHttpClient(
       withInterceptorsFromDi()
     ),
