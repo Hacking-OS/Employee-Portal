@@ -26,9 +26,47 @@
 
 // /* Optionally, include typography styles */
 // @include mat.typography($custom-theme);
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body { 
+    height: 100%;
+    scroll-behavior: smooth;
+ }
+body { 
+    margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
+    user-select: none; /* Prevent text selection */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE/Edge */
+}
 
+
+@keyframes rotateCog {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgb(52, 215, 215);
+    border-radius: 6px;
+    border: 1px solid #edff87;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%23ffffff' d='M487.4 315.7l-42.5-24.5c2.9-16.8 2.9-34 0-50.8l42.5-24.5c15.9-9.1 22.4-28.5 14.9-45.3l-19.4-45.1c-7.6-17.7-26.1-27.7-44.6-23.5l-49.6 11.4c-13.2-12.1-27.9-22.4-44-30.3l-7.3-50.1C334.9 9 318.9 0 302.3 0h-47.9c-16.5 0-32.6 9-39.5 23.4l-7.3 50.1c-16.1 7.9-30.8 18.2-44 30.3l-49.6-11.4c-18.5-4.2-37 5.8-44.6 23.5l-19.4 45.1c-7.5 16.9-1 36.2 14.9 45.3l42.5 24.5c-2.9 16.8-2.9 34 0 50.8L24.9 315.7c-15.9 9.1-22.4 28.5-14.9 45.3l19.4 45.1c7.6 17.7 26.1 27.7 44.6 23.5l49.6-11.4c13.2 12.1 27.9 22.4 44 30.3l7.3 50.1c6.9 14.4 22.9 23.4 39.5 23.4h47.9c16.5 0 32.6-9 39.5-23.4l7.3-50.1c16.1-7.9 30.8-18.2 44-30.3l49.6 11.4c18.5 4.2 37-5.8 44.6-23.5l19.4-45.1c7.5-16.9 1-36.2-14.9-45.3zM256 336c-44.1 0-80-35.9-80-80s35.9-80 80-80 80 35.9 80 80-35.9 80-80 80z'/%3E%3C/svg%3E");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    animation: rotateCog 1s linear infinite;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 // ::ng-deep .mat-spinner circle,
 // ::ng-deep .mat-progress-spinner circle {
 //   stroke: white !important;

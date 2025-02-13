@@ -24,6 +24,7 @@
   font-weight: bold;
   transition: background 0.3s, color 0.3s;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .navbar a:hover {

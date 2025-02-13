@@ -104,7 +104,7 @@ export class ListingComponent implements OnInit {
     params.id=this.updateUser.id;
     params.userId=this.updateUser.userId;
     params.email=this.updateUser.email;
-    params.name=this.updateUser.name;
+    params.name=this.updateUser.userName;
     params.phone=this.updateUser.phone;
     params.salary=this.updateUser.salary;
     params.password=this.updateUser.password;

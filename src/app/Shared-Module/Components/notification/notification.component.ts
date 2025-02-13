@@ -12,9 +12,9 @@ import { AlertMessage, NotificationService } from './notification.AlertService';
          'alert-error': alert.type === 'error',
          'alert-info': alert.type === 'info'
        }">
-    <b>{{ alert.title?alert.title:alert.type }}</b> <br>
-    {{ alert.message }}
     <button class="close-btn" (click)="closeNotification(i)">x</button>
+    <b>{{ alert.title?alert.title:alert.type }}</b> <br>
+   <span class='small'> {{ alert.message }}</span>
   </div>
 </div>
     <!-- <button (click)="clearAlerts()">Clear Alerts</button> -->
@@ -24,21 +24,26 @@ import { AlertMessage, NotificationService } from './notification.AlertService';
   position: fixed;
   top: 20px;
   right: 20px;
-  z-index: 1000;
+  z-index: 99991;
   display: flex;
   flex-direction: column;
-  width:15%;
+  width: 15%;
   gap: 10px;
+  opacity: 0.89;
 }
 
 .notification-toast {
   position: relative;
-  padding: 10px 20px;
-  border-radius: 5px;
-  opacity: 1;
+  padding: 16px 20px;
+  border-radius: 6px;
   color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: opacity 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  transform: translateY(0);
+  font-size: 14px;
+  // display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .notification-toast.alert-success {
@@ -55,19 +60,44 @@ import { AlertMessage, NotificationService } from './notification.AlertService';
 
 .close-btn {
   position: absolute;
-  top: 30%;
+  top: 15%;
   right: 5px;
+  transform: translateY(-50%);
   background: none;
   border: none;
   color: white;
-  font-size: 14px;
+  font-size: 20px;
   cursor: pointer;
-  opacity: 0.5;
+  opacity: 0.6;
+  transition: opacity 0.2s ease-in-out;
 }
 
 .close-btn:hover {
   opacity: 1;
 }
+
+.small {
+  font-size: 12px;
+  font-weight:bold;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .notification-container {
+    width: 80%;
+    right: 10%;
+  }
+
+  .notification-toast {
+    font-size: 12px;
+    padding: 12px 16px;
+  }
+
+  .close-btn {
+    font-size: 14px;
+  }
+}
+
 
   `]
 })
