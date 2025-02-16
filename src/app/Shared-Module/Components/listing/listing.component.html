@@ -1,12 +1,12 @@
 <!-- {{ list|json }} -->
  <app-header></app-header>
  <app-notification></app-notification>
- <button type="button" class="btn btn-primary mt-5 mx-5" (click)="redirectTo(['manage','addEmployee'])"> Add Employee</button>
+ <button *ngIf="userInfo.isAdmin" type="button" class="btn btn-primary mt-5 mx-5" (click)="redirectTo(['manage','addEmployee'])"> Add Employee</button>
 <mat-card class="item-card">
   <mat-table [dataSource]="list" class="mat-elevation-z8">
 
     <!-- ID Column -->
-    <ng-container matColumnDef="id">
+    <ng-container *ngIf="userInfo.isAdmin" matColumnDef="id">
       <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
       <mat-cell *matCellDef="let item"> {{item.id}} </mat-cell>
     </ng-container>
@@ -24,7 +24,7 @@
     </ng-container>
 
     <!-- Phone Column -->
-    <ng-container *ngIf="userInfo.isAdmin" matColumnDef="phone">
+    <ng-container  matColumnDef="phone">
       <mat-header-cell *matHeaderCellDef> Phone </mat-header-cell>
       <mat-cell *matCellDef="let item"> {{item.phone}} </mat-cell>
     </ng-container>
@@ -34,7 +34,7 @@
       <mat-cell *matCellDef="let item"> {{item.salary}} </mat-cell>
     </ng-container>
     <!-- Position Column -->
-    <ng-container *ngIf="userInfo.isAdmin" matColumnDef="position">
+    <ng-container  matColumnDef="position">
       <mat-header-cell *matHeaderCellDef> Position </mat-header-cell>
       <mat-cell *matCellDef="let item"> {{item.teamName}} </mat-cell>
     </ng-container>
@@ -90,7 +90,7 @@
               </mat-select>
             </mat-form-field> -->
 
-            <select class="form-control" id="EmployeeTeamListing" name="EmployeeTeamListing" [(ngModel)]="updateUser.assignedTeamID" >
+            <select class="form-control" id="EmployeeTeamListing" name="EmployeeTeamListing" [(ngModel)]="updateUser.assignedTeamID" [disabled]="userInfo.isAdmin || userInfo.isTeamAdmin" >
               <option *ngFor="let team of EmployeeTeamListing" [value]="team.teamId">
                 {{ team.name }}
               </option>

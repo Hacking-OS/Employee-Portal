@@ -4,6 +4,7 @@ import { Employee } from '../Models/Employee.model';
 import { SharedService } from '../../../Shared-Module/Services/shared.service';
 import { NotificationService } from '../../../Shared-Module/Components/notification/notification.AlertService';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../Shared-Module/Services/auth.service';
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
@@ -26,7 +27,7 @@ export class AddComponent {
   };
   EmployeeTeamListing:Array<{id:string,teamId:string,name:string}> = [];
 
-  constructor(private sharedService:SharedService,private notificationService:NotificationService,private router:Router){}
+  constructor(private sharedService:SharedService,private notificationService:NotificationService,private router:Router,private authService:AuthService){}
 
  ngOnInit(): void {
   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -35,7 +36,7 @@ export class AddComponent {
  }
 
   onSubmit() {
-    this.sharedService.getDataAndSetList<Employee>(() => this.sharedService.GetApiResponse<Employee,Employee>('api/Employees/AddEmployee',this.employee), (response: Employee) => {
+    this.sharedService.getDataAndSetList<Employee>(() => this.sharedService.GetApiResponse<Employee,{Employee:Employee,IsAdmin:boolean}>('api/Employees/AddEmployee',{Employee:this.employee,IsAdmin:this.authService.getUserInfo()?.isAdmin!}), (response: Employee) => {
         this.notificationService.addAlert({ type: 'success',  message: 'Employee Added SuccessFully !'});
         setTimeout(()=>{
           this.router.navigate(['page','listing']);

@@ -70,7 +70,7 @@ export class ListingComponent implements OnInit {
     if(this.userInfo.isAdmin){
      this.displayedColumns = ['id', 'name', 'email', 'phone', 'salary', 'position' , 'actions'];
     } else {
-     this.displayedColumns = ['id', 'name', 'position', 'actions'];
+     this.displayedColumns = ['name','email', 'phone', 'position', 'actions'];
     }
   }
 
