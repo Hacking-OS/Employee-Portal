@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { LoginResponse } from '../../User-Module/user-login/models/loginResponse.model';
 import { IUserInfo } from '../Schemes/Interfaces/userInfo.interface';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { IUserInfo } from '../Schemes/Interfaces/userInfo.interface';
 export class AuthService {
   private userInfoSubject: BehaviorSubject<string | null>;
 
-  constructor() {
+  constructor(private router:Router) {
     if (typeof window !== 'undefined') {
     const storedUserInfo = sessionStorage.getItem('userInfo') ?? null;
     this.userInfoSubject = new BehaviorSubject<string | null>(storedUserInfo);
@@ -67,6 +68,7 @@ export class AuthService {
   logout(): void {
     sessionStorage.clear();
     localStorage.clear();
+    this.router.navigate(['/user/login']);
     this.userInfoSubject.next(null);
   }
   

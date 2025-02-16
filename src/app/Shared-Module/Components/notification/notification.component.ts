@@ -60,13 +60,13 @@ import { AlertMessage, NotificationService } from './notification.AlertService';
 
 .close-btn {
   position: absolute;
-  top: 15%;
-  right: 5px;
+  top: 17%;
+  right: 7px;
   transform: translateY(-50%);
   background: none;
   border: none;
   color: white;
-  font-size: 20px;
+  font-size: 15px;
   cursor: pointer;
   opacity: 0.6;
   transition: opacity 0.2s ease-in-out;

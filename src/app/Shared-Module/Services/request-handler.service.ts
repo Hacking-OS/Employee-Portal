@@ -69,7 +69,6 @@ export class RequestHandlerService {
     let errors = (typeof error.error === 'object') ? error.error : {message:''};
     if (error.status === 401 || error.status === 403 && ((error.error && typeof error.error  === 'object') && errors.message.includes('token'))) {
       this.authService.logout();
-      this.router.navigate(['/user/login']);
       return throwError(() => 'Session expired') as Observable<HttpEvent<HttpErrorResponse>>;
     }
     return throwError(() => error) as Observable<HttpEvent<HttpErrorResponse>>;

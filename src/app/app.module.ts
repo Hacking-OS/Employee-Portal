@@ -17,7 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { NotificationService } from './shared-module/Components/notification/notification.AlertService';
 import { SharedService } from './Shared-Module/Services/shared.service';
 // import { SharedEndPointService } from './Shared-Module/Services/shared-end-point.service';
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 // import { NotificationComponent } from './Shared-Module/Components/notification/notification.component';
 import { UserModule } from './User-Module/user.module';
 import { SharedModule } from './Shared-Module/shared.module';
@@ -29,6 +29,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ManagementModule } from './Management-Module/management.module';
 import { ErrorHandlerService } from './Shared-Module/Services/error-handler.service';
 import { BusyInterceptor } from './Shared-Module/Interceptors/busy.interceptor';
+import { errorHandlerInterceptor } from './Shared-Module/Interceptors/error-handler.interceptor';
 
 @NgModule({
   declarations: [AppComponent ],
@@ -55,7 +56,8 @@ import { BusyInterceptor } from './Shared-Module/Interceptors/busy.interceptor';
   providers: [
     provideClientHydration(),
     provideHttpClient(
-      withInterceptorsFromDi()
+      withInterceptorsFromDi(),
+      withInterceptors([errorHandlerInterceptor])
     ),
     // NotificationService,
     provideNgxMask(),
