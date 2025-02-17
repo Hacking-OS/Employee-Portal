@@ -1,7 +1,8 @@
-<!-- {{ list|json }} -->
- <app-header></app-header>
- <app-notification></app-notification>
- <button *ngIf="userInfo.isAdmin" type="button" class="btn btn-primary mt-5 mx-5" (click)="redirectTo(['manage','addEmployee'])"> Add Employee</button>
+<app-header></app-header>
+<app-notification></app-notification>
+
+<button *ngIf="userInfo.isAdmin" type="button" class="btn btn-primary mt-5 mx-5"
+  (click)="redirectTo(['manage','addEmployee'])"> Add Employee</button>
 <mat-card class="item-card">
   <mat-table [dataSource]="list" class="mat-elevation-z8">
 
@@ -24,7 +25,7 @@
     </ng-container>
 
     <!-- Phone Column -->
-    <ng-container  matColumnDef="phone">
+    <ng-container matColumnDef="phone">
       <mat-header-cell *matHeaderCellDef> Phone </mat-header-cell>
       <mat-cell *matCellDef="let item"> {{item.phone}} </mat-cell>
     </ng-container>
@@ -34,21 +35,57 @@
       <mat-cell *matCellDef="let item"> {{item.salary}} </mat-cell>
     </ng-container>
     <!-- Position Column -->
-    <ng-container  matColumnDef="position">
+    <ng-container matColumnDef="position">
       <mat-header-cell *matHeaderCellDef> Position </mat-header-cell>
       <mat-cell *matCellDef="let item"> {{item.teamName}} </mat-cell>
     </ng-container>
 
-     <!-- Actions Column -->
-     <ng-container matColumnDef="actions">
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
       <mat-cell *matCellDef="let item">
-        <button *ngIf="userInfo.isAdmin" mat-button color="primary" class="btn btn-primary me-2" (click)="onEdit(item)" [disabled]="item.isAdmin">Edit</button>
-        <button *ngIf="userInfo.isAdmin && userInfo.isTeamAdmin && userInfo.isUser" mat-button color="primary" class="btn btn-primary me-2" (click)="onUpdateUserByID(item)" [disabled]="item.isAdmin">Update Details</button>
-        <button *ngIf="userInfo.isAdmin" mat-button color="warn" class="btn btn-danger" (click)="onDelete(item)">Delete</button>
-        <button *ngIf="!userInfo.isAdmin && !userInfo.isTeamAdmin && userInfo.isUser == true" mat-button color="info" class="btn btn-info"  (click)="onEdit(item)">View</button>
+        <!-- Edit Button -->
+        <button *ngIf="!item.isAdmin && userInfo.isAdmin && !item.isTeamAdmin && item.isUser" mat-button color="primary"
+          class="btn btn-primary me-2 btn-sm rounded-pill shadow-sm p-2" (click)="onEdit(item)"
+          [disabled]="item.isAdmin">
+          <i class="fa fa-pencil-square me-1 mx-1"></i>
+        </button>
+
+        <!-- Update Profile Button -->
+        <button *ngIf="!item.isAdmin && userInfo.isAdmin && item.isTeamAdmin && item.isUser" mat-button color="primary"
+          class="btn btn-secondary me-2 btn-sm rounded-pill shadow-sm p-2" (click)="onUpdateUserByID(item)"
+          [disabled]="item.isAdmin">
+          <i class="fas fa-user-edit m-1"></i>
+        </button>
+
+        <!-- Delete Button -->
+        <button *ngIf="!item.isAdmin && !item.isTeamAdmin" mat-button color="warn"
+          class="btn btn-danger me-2 btn-sm rounded-pill shadow-sm p-2" (click)="onDelete(item)">
+          <i class="fa fa-trash me-1 mx-1"></i>
+        </button>
+
+        <!-- View Button (For Normal Users) -->
+        <button *ngIf="!item.isAdmin && item.isUser == true" mat-button color="info"
+          class="btn btn-info btn-sm rounded-pill shadow-sm p-2" (click)="onEdit(item)"><i class="fas fa-user-circle mx-1 me-1"></i></button>
       </mat-cell>
     </ng-container>
+
+
+    <!-- <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+      <mat-cell *matCellDef="let item">
+        <button *ngIf="userInfo.isAdmin && userInfo.isTeamAdmin && userInfo.isUser" mat-button color="primary"
+          class="btn btn-primary me-2  btn-sm" (click)="onEdit(item)" [disabled]="item.isAdmin"><i
+            class="fa fa-pencil-square"></i></button>
+        <button *ngIf="userInfo.isAdmin && userInfo.isTeamAdmin && userInfo.isUser" mat-button color="primary"
+          class="btn btn-secondary me-2  btn-sm" (click)="onUpdateUserByID(item)" [disabled]="item.isAdmin"><i class="fas fa-user-edit"></i>
+        </button>
+        <button *ngIf="userInfo.isAdmin" mat-button color="warn" class="btn btn-danger btn-sm"
+          (click)="onDelete(item)">Delete</button>
+        <button *ngIf="!userInfo.isAdmin && !userInfo.isTeamAdmin && userInfo.isUser == true" mat-button color="info"
+          class="btn btn-info" (click)="onEdit(item)">View</button>
+      </mat-cell>
+    </ng-container> -->
 
     <!-- Table Header and Row Definitions -->
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -58,27 +95,36 @@
 
 
 
-<div  #ModelPopup class="modal fade" id="globalModal" tabindex="-1" aria-labelledby="globalModalLabel" aria-hidden="true">
+<div #ModelPopup class="modal fade" id="globalModal" tabindex="-1" aria-labelledby="globalModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="globalModalLabel">Global Modal</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title" id="globalModalLabel">Update {{ popupUserUpdateName }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          style="filter: invert(24%) sepia(91%) saturate(7495%) hue-rotate(359deg) brightness(103%) contrast(116%);">
+        </button>
+        <!-- <button type="button" class="btn-close" style="color: red;" data-bs-dismiss="modal" aria-label="Close"></button> -->
       </div>
       <form #f="ngForm" (ngSubmit)="updateEmployeeFromPopup()">
-      <div class="modal-body">
-        <!-- Dynamic content goes here -->
-        <ng-content>
-          <!-- Content here -->
-          <!-- Example: <p>Some text in the modal.</p> -->
+        <div class="modal-body">
+          <!-- Dynamic content goes here -->
+          <ng-content>
+            <!-- Content here -->
+            <!-- Example: <p>Some text in the modal.</p> -->
             <mat-label>name</mat-label>
-            <input class="form-control" type="text" name="name" id="name" [(ngModel)]="updateUser.userName" [disabled]="!updateUser.isTeamAdmin  &&  updateUser.isUser">
+            <input class="form-control" type="text" name="name" id="name" [(ngModel)]="updateUser.userName"
+              [disabled]="!updateUser.isTeamAdmin  &&  updateUser.isTeamAdmin">
             <mat-label>email</mat-label>
-            <input class="form-control"type="text" name="email" id="email" [(ngModel)]="updateUser.email" [disabled]="!updateUser.isTeamAdmin  &&  updateUser.isUser">
+            <input class="form-control" type="text" name="email" id="email" [(ngModel)]="updateUser.email"
+              [disabled]="userInfo.isAdmin  &&  updateUser.isTeamAdmin">
             <mat-label>phone</mat-label>
-            <input class="form-control"type="text" name="phone" id="phone" mask="000-000-0000" [showMaskTyped]="true" [dropSpecialCharacters]="false" [(ngModel)]="updateUser.phone" [disabled]="!updateUser.isTeamAdmin  &&  updateUser.isUser">
+            <input class="form-control" type="text" name="phone" id="phone" mask="000-000-0000" [showMaskTyped]="true"
+              [dropSpecialCharacters]="false" [(ngModel)]="updateUser.phone"
+              [disabled]="updateUser.isTeamAdmin  &&  updateUser.isUser">
             <mat-label>salary</mat-label>
-            <input class="form-control"type="text" name="salary" id="salary" [(ngModel)]="updateUser.salary" [disabled]="!updateUser.isTeamAdmin">
+            <input class="form-control" type="text" name="salary" id="salary" [(ngModel)]="updateUser.salary"
+              [disabled]="!userInfo.isAdmin">
             <mat-label>Position</mat-label>
             <!-- <span class="form-control" [innerHTML]="updateUser.teamName"></span> -->
             <!-- <mat-form-field appearance="fill">
@@ -90,7 +136,8 @@
               </mat-select>
             </mat-form-field> -->
 
-            <select class="form-control" id="EmployeeTeamListing" name="EmployeeTeamListing" [(ngModel)]="updateUser.assignedTeamID" [disabled]="userInfo.isAdmin || userInfo.isTeamAdmin" >
+            <select class="form-control" id="EmployeeTeamListing" name="EmployeeTeamListing"
+              [(ngModel)]="updateUser.assignedTeamID" [disabled]="!userInfo.isAdmin">
               <option *ngFor="let team of EmployeeTeamListing" [value]="team.teamId">
                 {{ team.name }}
               </option>

@@ -1,4 +1,5 @@
 export interface Employee {
+   Id?:number;
     userId: string;
     name: string;
     email: string;
@@ -11,5 +12,11 @@ export interface Employee {
     refreshToken: string;
     assignedTeamID: string;
     refreshTokenExpirationDate: string;
+
+    userAuthDetails:{
+      isAdmin: boolean;
+      isTeamLead: boolean;
+      isUser: boolean;
+    }
   }
   

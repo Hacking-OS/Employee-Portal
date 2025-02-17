@@ -6,6 +6,7 @@ import { NotificationService } from '../notification/notification.AlertService';
 import { gridListingParams, updateEmployeeParams } from '../../Schemes/models/listing.model';
 import { IUserInfo } from '../../Schemes/Interfaces/userInfo.interface';
 import { Router } from '@angular/router';
+import { Employee } from '../../../Management-Module/Employees/Models/Employee.model';
 declare var bootstrap: {
   Modal: new (element: HTMLElement, options?: Partial<ModalOptions>) => ModalInstance;
 };
@@ -62,6 +63,7 @@ export class ListingComponent implements OnInit {
     teamName: ''
   }
   displayedColumns: string[]=[]; // Columns to display
+  popupUserUpdateName: string = '';
   constructor(private sharedService: SharedService, private notificationService: NotificationService,private authService:AuthService,private router:Router) { }
   ngOnInit(): void {
     this.getGridListing();
@@ -88,30 +90,43 @@ export class ListingComponent implements OnInit {
     console.log(item);
     // new bootstrap(this.)
     this.updateUser = item;
+    this.popupUserUpdateName = item.userName;
     this.modelPopupInstance.show();
-    this.notificationService.addAlert({ type: 'info', message: 'info: '+ item.name });
+    this.notificationService.addAlert({ type: 'info', message: 'info: U are Going to Edit :   '+ item.userName });
 }
   onDelete(item: gridListingParams) {
     console.log('item');
     console.log(item);
-    this.notificationService.addAlert({ type: 'error', message: 'Error: ' + item.name});
+    this.notificationService.addAlert({ type: 'error', message: 'Error: ' + item.userName});
   }
 
 
   updateEmployeeFromPopup(){
     console.log("Hitt API");
-    let params:updateEmployeeParams=new updateEmployeeParams();
-    params.id=this.updateUser.id;
-    params.userId=this.updateUser.userId;
-    params.email=this.updateUser.email;
-    params.name=this.updateUser.userName;
-    params.phone=this.updateUser.phone;
-    params.salary=this.updateUser.salary;
-    params.password=this.updateUser.password;
-    params.assignedTeamID = this.updateUser.assignedTeamID;
-    params.isAdmin = this.authService.getUserInfo()?.isAdmin || false;
-    this.sharedService.getDataAndSetList(() => this.sharedService.GetApiResponse<Array<Object>, updateEmployeeParams>('api/Employees/updateEmployee', params), (response: any) => {
-        this.notificationService.addAlert({type:'success',message:"User " + response.name +" updated Successfully!"});
+    let params: Employee = {
+      Id: this.updateUser.id,
+      userId: this.updateUser.userId,
+      email: this.updateUser.email,
+      name: this.updateUser.userName,
+      phone: this.updateUser.phone,
+      salary: this.updateUser.salary,
+      password: this.updateUser.password,
+      assignedTeamID: this.updateUser.assignedTeamID,
+      isAdmin: false,
+      isTeamAdmin: false,
+      isUser: false,
+      refreshToken: '',
+      refreshTokenExpirationDate: '',
+      userAuthDetails: {
+        isAdmin: this.authService.getUserInfo()?.isAdmin || false,
+        isTeamLead: this.authService.getUserInfo()?.isTeamAdmin || false,
+        isUser: this.authService.getUserInfo()?.isUser || false
+      },
+    };
+    
+
+    this.sharedService.getDataAndSetList(() => this.sharedService.GetApiResponse<Employee, Employee>('api/Employees/updateEmployee', params), (response: Employee) => {
+        this.notificationService.addAlert({type:'success',message:"User " + response.name.split(" ")[0] +" updated Successfully!"});
         this.getGridListing();
         this.modelPopupInstance.hide();
     });

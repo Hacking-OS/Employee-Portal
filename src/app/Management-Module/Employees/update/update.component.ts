@@ -4,6 +4,7 @@ import { NotificationService } from '../../../Shared-Module/Components/notificat
 import { SharedService } from '../../../Shared-Module/Services/shared.service';
 import { Employee } from '../Models/Employee.model';
 import { v4 as uuidv4 } from 'uuid';
+import { AuthService } from '../../../Shared-Module/Services/auth.service';
 
 @Component({
   selector: 'app-update',
@@ -23,12 +24,17 @@ export class UpdateComponent {
     isUser: true,
     refreshToken: '',
     assignedTeamID: uuidv4(),
-    refreshTokenExpirationDate: new Date(new Date().setDate(new Date().getDate() + 2)).toISOString(), // Default 2 days from now
+    refreshTokenExpirationDate: new Date(new Date().setDate(new Date().getDate() + 2)).toISOString(),
+    userAuthDetails: {
+      isAdmin: false,
+      isTeamLead: false,
+      isUser: false
+    }
   };
   EmployeeTeamListing:Array<{id:string,teamId:string,name:string}> = [];
   employeeData: any;
 
-  constructor(private sharedService:SharedService,private notificationService:NotificationService,private router:Router){}
+  constructor(private sharedService:SharedService,private notificationService:NotificationService,private router:Router,private authService:AuthService){}
 
  ngOnInit(): void {
   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -61,12 +67,16 @@ export class UpdateComponent {
  }
 
   onSubmit() {
-    this.sharedService.getDataAndSetList<Employee>(() => this.sharedService.GetApiResponse<Employee,Employee>('api/Employees/updateEmployee',this.employee), (response: Employee) => {
-        this.notificationService.addAlert({ type: 'success',  message: 'Updated Added SuccessFully !'});
-        setTimeout(()=>{
-          this.router.navigate(['page','listing']);
-        },5000);
+    this.sharedService.getDataAndSetList<Employee>(() =>  this.sharedService.GetApiResponse<Employee, Employee>('api/Employees/updateEmployee', {   ...this.employee, 
+          userAuthDetails: {  isAdmin: this.authService.getUserInfo()?.isAdmin!,  isTeamLead: this.authService.getUserInfo()?.isTeamAdmin! , isUser:this.authService.getUserInfo()?.isUser! } }), (response: Employee) => {
+      this.notificationService.addAlert({
+        type: 'success', 
+        message: `Updated ${response.name.split(' ')[0]} Successfully!`
       });
+    }).finally(()=>{
+     setTimeout(()=> { this.router.navigate(['page', 'listing']); },3000);
+    });
+    
   }
 
     getTeamPositionListing(){

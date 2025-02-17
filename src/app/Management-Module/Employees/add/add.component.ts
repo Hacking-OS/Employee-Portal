@@ -23,7 +23,12 @@ export class AddComponent {
     isUser: true,
     refreshToken: '',
     assignedTeamID: uuidv4(),
-    refreshTokenExpirationDate: new Date(new Date().setDate(new Date().getDate() + 2)).toISOString(), // Default 2 days from now
+    refreshTokenExpirationDate: new Date(new Date().setDate(new Date().getDate() + 2)).toISOString(),
+    userAuthDetails: {
+      isAdmin: false,
+      isTeamLead: false,
+      isUser: false
+    }
   };
   EmployeeTeamListing:Array<{id:string,teamId:string,name:string}> = [];
 

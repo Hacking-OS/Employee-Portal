@@ -30,29 +30,6 @@ export class DepartmentComponent {
       this.loading = false;
     }, 2000);
     });
-    // setTimeout(() => {
-    //   this.getEmployeeCounts().subscribe(
-    //     (data) => {
-    //       this.distinctEmployeeCount = data.distinctEmployeeCount;
-    //       this.totalEmployeeCount = data.totalEmployeeCount;
-    //       this.loading = false; // Turn off loading after fetching data
-    //     },
-    //     (error) => {
-    //       console.error('Error fetching employee counts', error);
-    //       this.loading = false;
-    //     }
-    //   );
-    // }, 1500); // Simulate 1.5 seconds delay
-  }
-
-
-  getEmployeeCounts(): Observable<{ distinctEmployeeCount: number; totalEmployeeCount: number }> {
-    const data = {
-      distinctEmployeeCount: Math.floor(Math.random() * 20) + 10, // Random number between 10 and 30
-      totalEmployeeCount: Math.floor(Math.random() * 150) + 80,   // Random number between 80 and 230
-    };
-
-    return of(data).pipe(delay(10000)); // Simulate 1 second API delay
   }
 
 

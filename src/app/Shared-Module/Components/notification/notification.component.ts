@@ -78,7 +78,7 @@ import { AlertMessage, NotificationService } from './notification.AlertService';
 
 .small {
   font-size: 12px;
-  font-weight:bold;
+  font-weight:light;
 }
 
 /* Responsive Styles */

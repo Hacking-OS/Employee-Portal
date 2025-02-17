@@ -24,4 +24,15 @@ export class updateEmployeeParams {
   salary!: number;
   assignedTeamID!: string;
   isAdmin:boolean = false;
+  isTeamLead:boolean = false;
+  isUser:boolean = false;
+  userAuthDetails:{
+    isAdmin: boolean;
+    isTeamLead: boolean;
+    isUser: boolean;
+  } = {
+    isAdmin: false,
+    isTeamLead: false,
+    isUser: false,
+  }
 }
