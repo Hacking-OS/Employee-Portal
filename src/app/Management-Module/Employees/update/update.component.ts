@@ -29,7 +29,8 @@ export class UpdateComponent {
       isAdmin: false,
       isTeamLead: false,
       isUser: false
-    }
+    },
+    groupID: 0
   };
   EmployeeTeamListing:Array<{id:string,teamId:string,name:string}> = [];
   employeeData: any;

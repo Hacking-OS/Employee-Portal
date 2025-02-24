@@ -28,9 +28,11 @@ export class AddComponent {
       isAdmin: false,
       isTeamLead: false,
       isUser: false
-    }
+    },
+    groupID: 0
   };
   EmployeeTeamListing:Array<{id:string,teamId:string,name:string}> = [];
+  EmployeeTeamGroupListing:Array<any> = [];
 
   constructor(private sharedService:SharedService,private notificationService:NotificationService,private router:Router,private authService:AuthService){}
 
@@ -38,10 +40,12 @@ export class AddComponent {
   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
   //Add 'implements OnInit' to the class.
   this.getTeamPositionListing();
+  this.getTeamGroupNames();
  }
 
   onSubmit() {
-    this.sharedService.getDataAndSetList<Employee>(() => this.sharedService.GetApiResponse<Employee,{Employee:Employee,IsAdmin:boolean}>('api/Employees/AddEmployee',{Employee:this.employee,IsAdmin:this.authService.getUserInfo()?.isAdmin!}), (response: Employee) => {
+    // this.employee.adminID = this.authService.getUserInfo()?.userId || '';
+    this.sharedService.getDataAndSetList<Employee>(() => this.sharedService.GetApiResponse<Employee,{Employee:Employee,IsAdmin:boolean,adminID:string,groupID:number}>('api/Employees/AddEmployee',{Employee:this.employee,IsAdmin:this.authService.getUserInfo()?.isAdmin! , adminID:this.authService.getUserInfo()?.userId || '',groupID:this.employee.groupID}), (response: Employee) => {
         this.notificationService.addAlert({ type: 'success',  message: 'Employee Added SuccessFully !'});
         setTimeout(()=>{
           this.router.navigate(['page','listing']);
@@ -52,6 +56,13 @@ export class AddComponent {
     getTeamPositionListing(){
       this.sharedService.getDataAndSetList<Array<{id:string,teamId:string,name:string}>>(() => this.sharedService.GetApiResponse<Array<{id:string,teamId:string,name:string}>,null>('api/Employees/getTeamList',null), (response: Array<{id:string,teamId:string,name:string}>) => {
           this.EmployeeTeamListing = response;
+      });
+    }
+
+
+    getTeamGroupNames(){
+      this.sharedService.getDataAndSetList<Array<any>>(() => this.sharedService.GetApiResponse<Array<any>,null>('api/Employees/getTeamGroups',null), (response: Array<any>) => {
+          this.EmployeeTeamGroupListing = response;
       });
     }
 }

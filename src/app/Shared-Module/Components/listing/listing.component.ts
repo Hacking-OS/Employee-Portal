@@ -48,7 +48,7 @@ export class ListingComponent implements OnInit {
     isTeamAdmin: false,
     isUser: false,
     teamName: '',
-    assignedTeamID:''
+    assignedTeamID:'',
   };
   userInfo : IUserInfo ={
     id: 0,
@@ -64,6 +64,8 @@ export class ListingComponent implements OnInit {
   }
   displayedColumns: string[]=[]; // Columns to display
   popupUserUpdateName: string = '';
+  isViewPopup: boolean = false;
+
   constructor(private sharedService: SharedService, private notificationService: NotificationService,private authService:AuthService,private router:Router) { }
   ngOnInit(): void {
     this.getGridListing();
@@ -85,10 +87,11 @@ export class ListingComponent implements OnInit {
   }
   
 
-  onEdit(item: gridListingParams) {
+  onEdit(item: gridListingParams,isView:boolean) {
     console.log('item');
     console.log(item);
     // new bootstrap(this.)
+    this.isViewPopup = isView;
     this.updateUser = item;
     this.popupUserUpdateName = item.userName;
     this.modelPopupInstance.show();
@@ -120,8 +123,9 @@ export class ListingComponent implements OnInit {
       userAuthDetails: {
         isAdmin: this.authService.getUserInfo()?.isAdmin || false,
         isTeamLead: this.authService.getUserInfo()?.isTeamAdmin || false,
-        isUser: this.authService.getUserInfo()?.isUser || false
+        isUser: this.authService.getUserInfo()?.isUser || false,
       },
+      groupID: 0
     };
     
 

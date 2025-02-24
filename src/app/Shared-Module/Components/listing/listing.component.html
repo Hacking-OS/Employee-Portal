@@ -46,7 +46,7 @@
       <mat-cell *matCellDef="let item">
         <!-- Edit Button -->
         <button *ngIf="!item.isAdmin && userInfo.isAdmin && !item.isTeamAdmin && item.isUser" mat-button color="primary"
-          class="btn btn-primary me-2 btn-sm rounded-pill shadow-sm p-2" (click)="onEdit(item)"
+          class="btn btn-primary me-2 btn-sm rounded-pill shadow-sm p-2" (click)="onEdit(item,false)"
           [disabled]="item.isAdmin">
           <i class="fa fa-pencil-square me-1 mx-1"></i>
         </button>
@@ -58,15 +58,16 @@
           <i class="fas fa-user-edit m-1"></i>
         </button>
 
+        <!-- View Button (For Normal Users) -->
+        <button mat-button color="info" class="btn btn-info me-2 btn-sm rounded-pill shadow-sm p-2 text-white"
+          (click)="onEdit(item,true)"><i class="fas fa-user-circle mx-1 me-1"></i></button>
+
         <!-- Delete Button -->
         <button *ngIf="!item.isAdmin && !item.isTeamAdmin" mat-button color="warn"
-          class="btn btn-danger me-2 btn-sm rounded-pill shadow-sm p-2" (click)="onDelete(item)">
+          class="btn btn-danger btn-sm rounded-pill shadow-sm p-2" (click)="onDelete(item)">
           <i class="fa fa-trash me-1 mx-1"></i>
         </button>
 
-        <!-- View Button (For Normal Users) -->
-        <button *ngIf="!item.isAdmin && item.isUser == true" mat-button color="info"
-          class="btn btn-info btn-sm rounded-pill shadow-sm p-2" (click)="onEdit(item)"><i class="fas fa-user-circle mx-1 me-1"></i></button>
       </mat-cell>
     </ng-container>
 
@@ -114,17 +115,17 @@
             <!-- Example: <p>Some text in the modal.</p> -->
             <mat-label>name</mat-label>
             <input class="form-control" type="text" name="name" id="name" [(ngModel)]="updateUser.userName"
-              [disabled]="!updateUser.isTeamAdmin  &&  updateUser.isTeamAdmin">
+              [disabled]="!updateUser.isTeamAdmin  &&  updateUser.isTeamAdmin || isViewPopup">
             <mat-label>email</mat-label>
             <input class="form-control" type="text" name="email" id="email" [(ngModel)]="updateUser.email"
-              [disabled]="userInfo.isAdmin  &&  updateUser.isTeamAdmin">
+              [disabled]="userInfo.isAdmin  &&  updateUser.isTeamAdmin || isViewPopup">
             <mat-label>phone</mat-label>
             <input class="form-control" type="text" name="phone" id="phone" mask="000-000-0000" [showMaskTyped]="true"
-              [dropSpecialCharacters]="false" [(ngModel)]="updateUser.phone"
-              [disabled]="updateUser.isTeamAdmin  &&  updateUser.isUser">
+              [dropSpecialCharacters]="false" [(ngModel)]="updateUser.phone "
+              [disabled]="updateUser.isTeamAdmin  &&  updateUser.isUser || isViewPopup">
             <mat-label>salary</mat-label>
             <input class="form-control" type="text" name="salary" id="salary" [(ngModel)]="updateUser.salary"
-              [disabled]="!userInfo.isAdmin">
+              [disabled]="!userInfo.isAdmin || isViewPopup">
             <mat-label>Position</mat-label>
             <!-- <span class="form-control" [innerHTML]="updateUser.teamName"></span> -->
             <!-- <mat-form-field appearance="fill">
@@ -137,7 +138,7 @@
             </mat-form-field> -->
 
             <select class="form-control" id="EmployeeTeamListing" name="EmployeeTeamListing"
-              [(ngModel)]="updateUser.assignedTeamID" [disabled]="!userInfo.isAdmin">
+              [(ngModel)]="updateUser.assignedTeamID" [disabled]="!userInfo.isAdmin || isViewPopup">
               <option *ngFor="let team of EmployeeTeamListing" [value]="team.teamId">
                 {{ team.name }}
               </option>
@@ -145,7 +146,7 @@
             <!-- <input class="form-control"type="text" name="salary" id="salary" [(ngModel)]="" [disabled]="updateUser.isTeamAdmin"> -->
           </ng-content>
         </div>
-        <div class="modal-footer">
+        <div *ngIf="!isViewPopup" class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button *ngIf="userInfo.isAdmin" type="submit" class="btn btn-primary">Save changes</button>
         </div>
