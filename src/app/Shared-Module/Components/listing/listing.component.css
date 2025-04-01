@@ -4,6 +4,7 @@
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  overflow-x: auto; /* Enables horizontal scrolling */
 }
 
 /* Styling for the table */
@@ -12,25 +13,62 @@ mat-table {
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  min-width: 1024px; /* Ensures table is wide enough */
 }
 
+/* Styling for table headers */
 mat-header-row {
-  background-color: #007BFF; /* Blue background for header */
-  color: #fff; /* White text for header */
+  background-color: #007BFF;
+  color: #fff;
 }
 
 mat-header-cell {
   font-weight: bold;
   padding: 16px;
+  white-space: nowrap; /* Prevents text wrapping */
 }
 
+/* Styling for table cells */
 mat-cell {
   padding: 16px;
   border-bottom: 1px solid #e0e0e0;
+  white-space: nowrap; /* Prevents text wrapping */
 }
 
+/* Hover effect on rows */
 mat-row:hover {
-  background-color: rgba(0, 0, 0, 0.05); /* Light hover effect on rows */
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
+/* Ensure the action buttons fit */
+mat-cell:last-child {
+  min-width: 160px; /* Ensures actions column has enough space */
+}
 
+/* Responsive Design */
+@media (max-width: 768px) {
+  .item-card {
+    padding: 10px;
+    margin: 10px;
+    overflow-x: auto; /* Enables horizontal scrolling */
+  }
+
+  mat-table {
+    display: block;
+    overflow-x: auto; /* Enables table scrolling */
+    white-space: nowrap;
+    min-width: 800px; /* Prevents the table from shrinking too much */
+  }
+
+  mat-header-cell,
+  mat-cell {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  /* Ensure action buttons are always visible */
+  mat-cell:last-child {
+    min-width: 180px; /* More space for action buttons */
+    text-align: center;
+  }
+}
