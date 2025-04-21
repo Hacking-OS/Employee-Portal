@@ -18,6 +18,7 @@ import { AddComponent } from './Employees/add/add.component';
 import { UpdateComponent } from './Employees/update/update.component';
 import { RemoveComponent } from './Employees/remove/remove.component';
 import { BusyInterceptor } from "../Shared-Module/Interceptors/busy.interceptor";
+import { PrintEmployeeDetailsComponent } from "./Print-Employee-Details/Print-Employee-Details.component";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { BusyInterceptor } from "../Shared-Module/Interceptors/busy.interceptor"
     AddComponent,
     UpdateComponent,
     RemoveComponent,
+    PrintEmployeeDetailsComponent
   ],
   imports: [
     CommonModule,
