@@ -252,3 +252,95 @@ button {
     transform: translateY(0);
   }
 }
+
+
+
+// .employee-card {
+//   max-width: 400px;
+//   margin: 32px auto 0 auto;
+//   box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 1.5px 6px rgba(0,0,0,0.08);
+//   border-radius: 12px;
+//   background: #fff;
+
+//   mat-card-header {
+//     background: #1976d2;
+//     color: #fff;
+//     border-top-left-radius: 12px;
+//     border-top-right-radius: 12px;
+//     padding: 16px;
+//     mat-card-title {
+//       font-size: 1.3rem;
+//       font-weight: 600;
+//     }
+//   }
+
+//   mat-card-content {
+//     padding: 16px;
+//     p {
+//       margin: 0 0 8px 0;
+//       font-size: 1rem;
+//       color: #333;
+//     }
+//   }
+
+//   mat-card-actions {
+//     display: flex;
+//     justify-content: flex-end;
+//     padding: 8px 16px 16px 16px;
+
+//     button[mat-button] {
+//       font-weight: 600;
+//       color: #fff;
+//       background: linear-gradient(90deg, #1976d2 0%, #42a5f5 100%);
+//       border-radius: 24px;
+//       padding: 12px 32px;
+//       font-size: 1.1rem;
+//       letter-spacing: 1px;
+//       box-shadow: 0 4px 16px rgba(25, 118, 210, 0.15);
+//       border: none;
+//       outline: none;
+//       cursor: pointer;
+//       position: relative;
+//       overflow: hidden;
+//       z-index: 1;
+//       transition: background 0.2s, transform 0.2s, box-shadow 0.2s, color 0.2s;
+      
+//       &:hover {
+//         background: linear-gradient(90deg, #1565c0 0%, #64b5f6 100%);
+//         color: #fff;
+//         transform: translateY(-2px) scale(1.05);
+//         box-shadow: 0 8px 24px rgba(25, 118, 210, 0.25);
+//       }
+//       &:active {
+//         transform: scale(0.98);
+//         box-shadow: 0 2px 4px rgba(25, 118, 210, 0.12);
+//       }
+//       &::after {
+//         content: '';
+//         position: absolute;
+//         left: 50%;
+//         top: 50%;
+//         width: 0;
+//         height: 0;
+//         background: rgba(255,255,255,0.15);
+//         border-radius: 100%;
+//         transform: translate(-50%, -50%);
+//         transition: width 0.4s cubic-bezier(0.4,0,0.2,1), height 0.4s cubic-bezier(0.4,0,0.2,1);
+//         z-index: -1;
+//       }
+//       &:hover::after {
+//         width: 200%;
+//         height: 500%;
+//       }
+      
+//       /* Optional: subtle icon animation if you add an icon */
+//       .mat-icon {
+//         margin-right: 8px;
+//         transition: transform 0.3s;
+//       }
+//       &:hover .mat-icon {
+//         transform: scale(1.2) rotate(-10deg);
+//       }
+//     }
+//   }
+// }

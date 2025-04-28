@@ -9,6 +9,7 @@ import { LoginResponse } from './models/loginResponse.model';
 // import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationService } from '../../Shared-Module/Components/notification/notification.AlertService';
 import { SharedService } from '../../Shared-Module/Services/shared.service';
+import { Employee } from '../../Management-Module/Employees/Models/Employee.model';
 
 @Component({
   selector: 'app-user-login',
@@ -31,6 +32,7 @@ import { SharedService } from '../../Shared-Module/Services/shared.service';
 export class UserLoginComponent implements OnInit {
   loginForm!: FormGroup;
   isSubmitting:boolean=false;
+  employeeDetails: Employee | null = null;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -70,4 +72,10 @@ export class UserLoginComponent implements OnInit {
   redirectToSignup() {
     this.router.navigate(['/signup']);
   }
+
+  // redirectToEmployeeDetails(): void {
+  //   // Implement your navigation logic here, e.g.:
+  //   // this.router.navigate(['/employee-details']);
+  //   console.log('Redirecting to employee details...');
+  // }
 }
