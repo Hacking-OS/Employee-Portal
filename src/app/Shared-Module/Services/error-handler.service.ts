@@ -19,8 +19,8 @@ export class ErrorHandlerService extends ErrorHandler {
   errorShowMessage(error:HttpErrorResponse) : void {
     if (typeof error.error === 'object') {
       if (error.status === 400 || error.status === 401 || error.status === 403 || error.status === 404 || error.status === 405 || error.status === 406) {
-        if (error.error[0].includes('token')) {
-          this.notificationService.addAlert({type:'error',message:"Session Expired"});
+        if (error.error?.message.includes('token')) {  
+          this.notificationService.addAlert({type:'error',title:"Authentication Failed!",message:"Session Expired"});
         } else {
           this.notificationService.addAlert({type:'error',message:error.error.message ?? error.error[0] ?? error?.message});
         }
