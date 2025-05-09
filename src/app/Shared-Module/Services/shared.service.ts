@@ -18,12 +18,12 @@ export class SharedService {
     return this.sharedEndPointService.GetApiResponse<responseType, T>(path, obj);
   }
 
-  async getDataAndSetList<T>(Subscrible_Observable: () => Observable<T>, Observable_Response: (responseData: T) => void,Error?:(error:HttpErrorResponse) => void): Promise<T> {
+  async getDataAndSetList<T>(Subscribe_Observable: () => Observable<T>, onSuccess: (responseData: T) => void,onError?:(error:HttpErrorResponse) => void): Promise<T> {
     return new Promise<T>((resolve, reject) => {
-      Subscrible_Observable().pipe(tap((response: T) => Observable_Response(response))).subscribe({
+      Subscribe_Observable().pipe(tap((response: T) => onSuccess(response))).subscribe({
         next: (response: T) => resolve(response),
         error: (error: HttpErrorResponse) => {
-          (Error) ? Error(error) : null;
+          (onError) ? onError(error) : null;
           reject(error);
         }
       });
