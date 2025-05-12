@@ -34,6 +34,7 @@ export class UpdateComponent {
   };
   EmployeeTeamListing:Array<{id:string,teamId:string,name:string}> = [];
   employeeData: any;
+  isAllowChangeAssignment:boolean = false;
 
   constructor(private sharedService:SharedService,private notificationService:NotificationService,private router:Router,private authService:AuthService){}
 
@@ -43,6 +44,7 @@ export class UpdateComponent {
    // First, try using Router (works if the component is freshly navigated to)
    const navigation = this.router.getCurrentNavigation();
    this.employeeData = navigation?.extras.state?.data;
+   this.isAllowChangeAssignment = this.authService.getUserInfo()?.isAdmin! == true && this.authService.getUserInfo()?.isTeamAdmin! == true;
   //  this.employeeData = (navigation?.extras.state as any)?.data;
 
    // Fallback: If the above doesn't work (e.g., page refresh), use window.history.state
@@ -67,7 +69,7 @@ export class UpdateComponent {
   this.getEmployeeByID();
  }
 
-  onSubmit() {
+  onSubmit() : void {
     this.sharedService.getDataAndSetList<Employee>(() =>  this.sharedService.GetApiResponse<Employee, Employee>('api/Employees/updateEmployee', {   ...this.employee, 
           userAuthDetails: {  isAdmin: this.authService.getUserInfo()?.isAdmin!,  isTeamLead: this.authService.getUserInfo()?.isTeamAdmin! , isUser:this.authService.getUserInfo()?.isUser! } }), (response: Employee) => {
       this.notificationService.addAlert({
@@ -90,6 +92,10 @@ export class UpdateComponent {
       this.sharedService.getDataAndSetList<Employee>(() => this.sharedService.GetApiResponse<Employee,{id:string}>('api/Employees/GetEmployeesByID', {id:this.employeeData.userId}), (response: Employee) => {
           this.employee = response;
       });
+    }
+
+    getEmployeeAssignedRole () : string  {
+      return this.EmployeeTeamListing.find(item => item.teamId === this.employee.assignedTeamID)?.name ?? '';
     }
 
     ngOnDestroy(): void {

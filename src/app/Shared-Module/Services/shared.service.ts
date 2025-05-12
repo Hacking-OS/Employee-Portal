@@ -25,6 +25,7 @@ export class SharedService {
         error: (error: HttpErrorResponse) => {
           (onError) ? onError(error) : null;
           reject(error);
+          throw error;
         }
       });
     });

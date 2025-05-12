@@ -30,7 +30,7 @@
                 <input type="text" id="phone" class="form-control" [(ngModel)]="employee.phone" name="phone" required
                     placeholder="Enter phone number" />
             </div>
-      
+
             <div class="col-md-6">
                 <label for="salary" class="form-label">Salary:</label>
                 <input type="number" id="salary" class="form-control" [(ngModel)]="employee.salary" name="salary"
@@ -51,7 +51,7 @@
                     name="isTeamAdmin" />
             </div> -->
 
-            <div class="col-md-6">
+            <div *ngIf="isAllowChangeAssignment else viewOnly" class="col-md-6">
                 <label for="assignedTeamID" class="form-label">Assigned Team:</label>
                 <select class="form-control" id="EmployeeTeamListing" name="EmployeeTeamListing"
                     [(ngModel)]="employee.assignedTeamID">
@@ -60,6 +60,12 @@
                     </option>
                 </select>
             </div>
+            <ng-template #viewOnly>
+                <div class="col-md-6">
+                    <label for="assignedTeamID" class="form-label">Assigned Team From Admin:</label>
+                    <span class="badge rounded-pill text-bg-info p-2 m-1">{{ getEmployeeAssignedRole() }}</span>
+                </div>
+            </ng-template>
         </div>
 
         <div class="d-flex justify-content-center mt-4">
