@@ -111,12 +111,27 @@ export class NotificationComponent {
 
       // Initialize alerts$ here after the service is properly injected
       this.alerts$ = this.notificationService.alerts$;
+    // Track timeouts for each alert by index
+    const autoCloseTimeouts: { [key: number]: ReturnType<typeof setTimeout> } = {};
+
     this.alerts$.subscribe(alerts => {
-      alerts.forEach((alert, index) => {
-        // Set a timeout for each notification to automatically close after 5 seconds
-        setTimeout(() => {
-          this.closeNotification(index);
-        }, 5000); // 5 seconds before auto-close
+      // Clear timeouts for alerts that have been removed
+      Object.keys(autoCloseTimeouts).forEach(key => {
+      const idx = Number(key);
+      if (!alerts[idx]) {
+        clearTimeout(autoCloseTimeouts[idx]);
+        delete autoCloseTimeouts[idx];
+      }
+      });
+
+      // Set timeouts for new alerts
+      alerts.forEach((alert, idx) => {
+      if (!autoCloseTimeouts[idx]) {
+        autoCloseTimeouts[idx] = setTimeout(() => {
+        this.closeNotification(idx);
+        delete autoCloseTimeouts[idx];
+        }, 5000); // 5 seconds per alert
+      }
       });
     });
   }
