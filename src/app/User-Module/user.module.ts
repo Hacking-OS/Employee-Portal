@@ -22,26 +22,15 @@ import { BusyInterceptor } from "../Shared-Module/Interceptors/busy.interceptor"
     UserSignupComponent,
   ],
   imports: [
-    CommonModule,
-    UserRoutingModule,
     // BrowserModule,
     // BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatIconModule,
-    MatInputModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatProgressSpinnerModule,
-    MatListModule,
-    MatTableModule,
-    MatPaginatorModule,
+    UserRoutingModule,
     SharedModule
 ],
   providers: [
     // provideClientHydration(),
   //  { provide: HTTP_INTERCEPTORS, useClass: BusyInterceptor, multi: true },
-    provideHttpClient(),
+    // provideHttpClient(),
     // NotificationService,SharedService,SharedEndPointService
   ],
   // bootstrap: [AppComponent]

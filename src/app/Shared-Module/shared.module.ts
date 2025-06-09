@@ -19,6 +19,7 @@ import { HeaderComponent } from './Components/header/header.component';
 import { MatSelectModule } from '@angular/material/select';
 import { LoaderComponent } from './Components/loader/loader.component';
 import { BusyInterceptor } from './Interceptors/busy.interceptor';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -42,18 +43,34 @@ import { BusyInterceptor } from './Interceptors/busy.interceptor';
     MatPaginatorModule,
     NgxMaskDirective,    // Add mask directive
     NgxMaskPipe,
-    MatSelectModule
+    MatProgressSpinnerModule,
   ],
   providers: [
-    provideNgxMask(),provideHttpClient(withInterceptorsFromDi()),NotificationService,
-    { provide: HTTP_INTERCEPTORS, useClass: BusyInterceptor, multi: true },
+    // provideHttpClient(withInterceptorsFromDi()),
+    NotificationService,
+    // { provide: HTTP_INTERCEPTORS, useClass: BusyInterceptor, multi: true },
   ], // Provide the service here
   exports: [
     ListingComponent,
     NotificationComponent,
     HomeComponent,
     HeaderComponent,
-    LoaderComponent
+    LoaderComponent,
+
+    //  Commons
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatInputModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatListModule,
+    MatTableModule,
+    MatPaginatorModule,
+    NgxMaskDirective,    // Add mask directive
+    NgxMaskPipe,
+    MatProgressSpinnerModule,
   ]
 })
 export class SharedModule { }

@@ -30,26 +30,15 @@ import { PrintEmployeeDetailsComponent } from "./Print-Employee-Details/Print-Em
     PrintEmployeeDetailsComponent
   ],
   imports: [
-    CommonModule,
-    ManagementRoutingModule,
     // BrowserModule,
     // BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatIconModule,
-    MatInputModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatProgressSpinnerModule,
-    MatListModule,
-    MatTableModule,
-    MatPaginatorModule,
+    ManagementRoutingModule,
     SharedModule
 ],
   providers: [
     // provideClientHydration(),
-    provideHttpClient(withInterceptorsFromDi()),
-    { provide: HTTP_INTERCEPTORS, useClass: BusyInterceptor, multi: true },
+    // provideHttpClient(withInterceptorsFromDi()),
+    // { provide: HTTP_INTERCEPTORS, useClass: BusyInterceptor, multi: true },
     // NotificationService,SharedService,SharedEndPointService
   ],
   // bootstrap: [AppComponent]
